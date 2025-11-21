@@ -1,0 +1,5106 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/api/core/v1/{platform}/parametrizable-data": {
+            "get": {
+                "operationId": "ParametrizableDataController_getParametrizableData",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ParametrizableDataResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Obtener datos parametrizables del sistema",
+                "tags": [
+                    "Datos Parametrizables"
+                ]
+            },
+            "put": {
+                "operationId": "ParametrizableDataController_updateParametrizableData",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateParametrizableDataDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ParametrizableDataResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Actualizar datos parametrizables del sistema",
+                "tags": [
+                    "Datos Parametrizables"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/user/initial-register": {
+            "post": {
+                "operationId": "UserController_initialRegister",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserInitialRegisterDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuario registrado o ya existe",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Registro inicial de usuario (correo electrónico, contraseña, términos, is_bo)",
+                "tags": [
+                    "Usuarios"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/user/complete-register": {
+            "post": {
+                "operationId": "UserController_completeRegister",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CompleteRegisterDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuario actualizado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CompleteRegisterResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Completar el registro de usuario",
+                "tags": [
+                    "Usuarios"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/user": {
+            "get": {
+                "operationId": "UserController_getAllUsers",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de usuarios",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/UserResponseDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener todos los usuarios",
+                "tags": [
+                    "Usuarios"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/user/me": {
+            "get": {
+                "operationId": "UserController_getAUsers",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Información del usuario",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener información del usuario",
+                "tags": [
+                    "Usuarios"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/user/search-email/{email}": {
+            "get": {
+                "operationId": "UserController_searchUserByEmail",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "required": true,
+                        "in": "path",
+                        "description": "Correo electrónico del usuario",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuario encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Buscar usuario por correo electrónico",
+                "tags": [
+                    "Usuarios"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/user/update-password": {
+            "post": {
+                "operationId": "UserController_updatePassword",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdatePasswordDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Contraseña actualizada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdatePasswordResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Actualizar contraseña de usuario",
+                "tags": [
+                    "Usuarios"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/user/create": {
+            "post": {
+                "operationId": "UserController_createUser",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateUserDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuario creado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Crear nuevo usuario",
+                "tags": [
+                    "Usuarios"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/user/list": {
+            "post": {
+                "operationId": "UserController_listUsers",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserListDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Listado paginado de usuarios",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserListResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Listado de usuarios paginado, con buscador, filtros y ordenamiento",
+                "tags": [
+                    "Usuarios"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/user/roles-list": {
+            "post": {
+                "operationId": "UserController_getRolesForUserList",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listado de roles disponibles",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/RolesNameResponseDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener todos los roles disponibles para el usuario actual (para filtros de la lista de usuarios)",
+                "tags": [
+                    "Usuarios"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/user/send-activation-email/{userId}": {
+            "post": {
+                "operationId": "UserController_sendActivationEmail",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID del usuario registrado",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Correo de activación enviado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SendActivationEmailResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Enviar correo de activación a un usuario registrado por ID",
+                "tags": [
+                    "Usuarios"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/user/edit/{userId}": {
+            "put": {
+                "operationId": "UserController_editUser",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID del usuario a editar",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EditUserDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuario editado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "No se puede modificar el único usuario con rol administrador actual"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Editar usuario (restricciones para el único administrador)",
+                "tags": [
+                    "Usuarios"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/user/{userId}": {
+            "get": {
+                "operationId": "UserController_getUserById",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID del usuario a consultar",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuario encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserDetailResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Consultar usuario por ID",
+                "tags": [
+                    "Usuarios"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/user/permissions/{firebaseId}": {
+            "get": {
+                "operationId": "UserController_getPermissionsUserById",
+                "parameters": [
+                    {
+                        "name": "firebaseId",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID del usuario a consultar",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuario encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RoleDetailResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Consultar permisos por usuario",
+                "tags": [
+                    "Usuarios"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/user-audit/{userId}": {
+            "post": {
+                "operationId": "UserAuditController_getUserAudit",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserAuditQueryDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserAuditResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Consultar historial de auditoría de usuario (POST)",
+                "tags": [
+                    "Auditoría de Usuarios"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/user/{userId}/emails/history": {
+            "get": {
+                "operationId": "UserEmailHistoryController_getUserEmailHistory",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/UserEmailHistory"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener historial completo de correos electrónicos del usuario",
+                "tags": [
+                    "Historial de Correos de Usuario"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/user/{userId}/emails/primary": {
+            "get": {
+                "operationId": "UserEmailHistoryController_getPrimaryEmail",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserEmailHistory"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener correo electrónico principal activo del usuario",
+                "tags": [
+                    "Historial de Correos de Usuario"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company/sizes": {
+            "get": {
+                "operationId": "CompanyController_findAllCompanySizes",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de tamaños de empresa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ResponseDataDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Obtener todos los tamaños de empresa",
+                "tags": [
+                    "Company"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company/industries": {
+            "get": {
+                "operationId": "CompanyController_findAllIndustries",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de industrias",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ResponseDataDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Obtener todas las industrias",
+                "tags": [
+                    "Company"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company/main-usages": {
+            "get": {
+                "operationId": "CompanyController_findAllMainUsages",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de usos principales",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ResponseDataDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Obtener todos los usos principales",
+                "tags": [
+                    "Company"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/role": {
+            "get": {
+                "operationId": "RoleController_findAll",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de roles",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Role"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener todos los roles",
+                "tags": [
+                    "Role"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/role/list": {
+            "post": {
+                "operationId": "RoleController_listRoles",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RoleListDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Listado paginado de roles",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RoleListResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Listado de roles paginado y filtrado por compañía del usuario autenticado",
+                "tags": [
+                    "Role"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/role/create": {
+            "post": {
+                "operationId": "RoleController_createRole",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateRoleDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Rol creado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RoleCreateResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "El rol ya existe o validación fallida"
+                    },
+                    "500": {
+                        "description": "Error interno al crear rol"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Crear nuevo rol con permisos por módulo",
+                "tags": [
+                    "Role"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/role/update": {
+            "put": {
+                "operationId": "RoleController_updateRole",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateRoleDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Rol actualizado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RoleUpdateResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "El rol no existe o validación fallida"
+                    },
+                    "500": {
+                        "description": "Error interno al actualizar rol"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Actualizar un rol y sus permisos por módulo",
+                "tags": [
+                    "Role"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/role/delete": {
+            "delete": {
+                "operationId": "RoleController_deleteRole",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DeleteRoleDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Rol eliminado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RoleDeleteResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "No se puede eliminar el rol: está en uso o es administrador"
+                    },
+                    "500": {
+                        "description": "Error interno al eliminar rol"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Eliminar un rol",
+                "tags": [
+                    "Role"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/role/exists": {
+            "post": {
+                "operationId": "RoleController_roleExists",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RoleExistsDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Resultado de existencia del rol",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RoleExistsResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Verificar si un rol ya está creado por nombre",
+                "tags": [
+                    "Role"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/role/detail/{roleId}": {
+            "get": {
+                "operationId": "RoleController_getRoleDetail",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "roleId",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID del rol",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalle del rol",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RoleDetailResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Rol no encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Consultar el detalle de un rol por su ID",
+                "tags": [
+                    "Role"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/role/users/{roleId}": {
+            "post": {
+                "operationId": "RoleController_getUsersByRole",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "roleId",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID del rol",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserListDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Listado paginado de usuarios asociados al rol",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserAssociatedToRoleResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Consultar usuarios asociados a un rol (paginado y búsqueda por nombre)",
+                "tags": [
+                    "Role"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/role/modules": {
+            "get": {
+                "operationId": "RoleController_getModules",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de módulos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Modules"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Obtener todos los módulos disponibles",
+                "tags": [
+                    "Role"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/role/audit/{id}": {
+            "get": {
+                "operationId": "RoleController_getRoleAuditById",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Obtiene un evento de auditoría específico por ID",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RoleAuditEventDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Obtener un evento de auditoría específico por ID",
+                "tags": [
+                    "Role"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/role/role-audit/{id}": {
+            "get": {
+                "operationId": "RoleController_getHistoryRoleAuditByRoleId",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Obtiene el historial de auditoría del rol",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RoleAuditEventDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Obtener historial de auditoría de un rol por ID",
+                "tags": [
+                    "Role"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/role/audit-list": {
+            "post": {
+                "operationId": "RoleController_getAuditList",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RoleAuditListQueryDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Listado paginado de eventos de auditoría de roles",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuditRoleHistoryListResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Listado de historial de eventos de roles paginado, con buscador y ordenamiento",
+                "tags": [
+                    "Role"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/team": {
+            "get": {
+                "operationId": "TeamController_findAll",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de equipos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TeamResponseDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener todos los equipos de trabajo",
+                "tags": [
+                    "Team"
+                ]
+            },
+            "post": {
+                "operationId": "TeamController_createTeam",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateTeamDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Equipo creado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TeamResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Crear nuevo equipo",
+                "tags": [
+                    "Team"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/team/{id}/exists": {
+            "get": {
+                "operationId": "TeamController_existsTeam",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID numérico del equipo",
+                        "schema": {
+                            "type": "integer",
+                            "example": 5
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Resultado de existencia del equipo",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TeamExistsResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ID inválido (no entero positivo)"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Verificar si un equipo existe por su ID",
+                "tags": [
+                    "Team"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/team/details": {
+            "get": {
+                "operationId": "TeamController_getTeamsDetails",
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "required": true,
+                        "in": "query",
+                        "description": "Lista de IDs separados por coma, ej: 1,2,5",
+                        "schema": {
+                            "example": "1,2,5",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalle de equipos y IDs no encontrados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TeamDetailsResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Lista de IDs vacía o malformada"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener detalle de múltiples equipos",
+                "tags": [
+                    "Team"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/team/update/{id}": {
+            "put": {
+                "operationId": "TeamController_editTeam",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateTeamDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Equipo creado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TeamResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Editar equipo existente",
+                "tags": [
+                    "Team"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/team/list": {
+            "post": {
+                "operationId": "TeamController_listTeams",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TeamListDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Paginated teams list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TeamListResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "List teams by company with search, date range, ordering and pagination",
+                "tags": [
+                    "Team"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/team/name-exists": {
+            "get": {
+                "operationId": "TeamController_teamNameExists",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "required": true,
+                        "in": "query",
+                        "description": "Team name to validate",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TeamNameExistsResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Validate if a team name is already used within the company",
+                "tags": [
+                    "Team"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/team/delete/{id}": {
+            "delete": {
+                "operationId": "TeamController_deleteTeam",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "Team ID",
+                        "schema": {
+                            "type": "integer",
+                            "example": 7
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deletion result",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TeamDeleteResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Team has assigned users"
+                    },
+                    "404": {
+                        "description": "Team not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Delete a team (only if it has no assigned users)",
+                "tags": [
+                    "Team"
+                ]
+            }
+        },
+        "/api/core/v1/health": {
+            "get": {
+                "operationId": "HealthController_check",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "The Health Check is successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ok"
+                                        },
+                                        "info": {
+                                            "type": "object",
+                                            "example": {
+                                                "database": {
+                                                    "status": "up"
+                                                }
+                                            },
+                                            "additionalProperties": {
+                                                "type": "object",
+                                                "required": [
+                                                    "status"
+                                                ],
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "additionalProperties": true
+                                            },
+                                            "nullable": true
+                                        },
+                                        "error": {
+                                            "type": "object",
+                                            "example": {},
+                                            "additionalProperties": {
+                                                "type": "object",
+                                                "required": [
+                                                    "status"
+                                                ],
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "additionalProperties": true
+                                            },
+                                            "nullable": true
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "example": {
+                                                "database": {
+                                                    "status": "up"
+                                                }
+                                            },
+                                            "additionalProperties": {
+                                                "type": "object",
+                                                "required": [
+                                                    "status"
+                                                ],
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "additionalProperties": true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "503": {
+                        "description": "The Health Check is not successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "info": {
+                                            "type": "object",
+                                            "example": {
+                                                "database": {
+                                                    "status": "up"
+                                                }
+                                            },
+                                            "additionalProperties": {
+                                                "type": "object",
+                                                "required": [
+                                                    "status"
+                                                ],
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "additionalProperties": true
+                                            },
+                                            "nullable": true
+                                        },
+                                        "error": {
+                                            "type": "object",
+                                            "example": {
+                                                "redis": {
+                                                    "status": "down",
+                                                    "message": "Could not connect"
+                                                }
+                                            },
+                                            "additionalProperties": {
+                                                "type": "object",
+                                                "required": [
+                                                    "status"
+                                                ],
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "additionalProperties": true
+                                            },
+                                            "nullable": true
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "example": {
+                                                "database": {
+                                                    "status": "up"
+                                                },
+                                                "redis": {
+                                                    "status": "down",
+                                                    "message": "Could not connect"
+                                                }
+                                            },
+                                            "additionalProperties": {
+                                                "type": "object",
+                                                "required": [
+                                                    "status"
+                                                ],
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "additionalProperties": true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Health"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/country": {
+            "get": {
+                "operationId": "CountryController_findAll",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de países",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/CountryResponseDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Obtener todos los países",
+                "tags": [
+                    "Country"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/auth/login": {
+            "post": {
+                "operationId": "AuthController_login",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AuthLoginDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Tokens de Azure",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthLoginResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Login de usuario en Azure",
+                "tags": [
+                    "Autenticación"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/auth/generate-recover-token": {
+            "post": {
+                "operationId": "AuthController_validateEmailToGenerateToken",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GenerateAuthLinkDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Link de autenticación generado exitosamente"
+                    }
+                },
+                "summary": "Genera un token junto con una url para restablecer contraseña",
+                "tags": [
+                    "Autenticación"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/auth/encrypt": {
+            "post": {
+                "operationId": "AuthController_encrypt",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EncryptTextDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Texto encriptado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "encrypted": "U2FsdGVkX1..."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Encripta texto para uso interno",
+                "tags": [
+                    "Autenticación"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/auth/decrypt": {
+            "post": {
+                "operationId": "AuthController_decrypt",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EncryptTextDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Texto desencriptado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "decrypted": "miTexto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Desencripta texto para uso interno",
+                "tags": [
+                    "Autenticación"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/auth/revoke-tokens": {
+            "post": {
+                "operationId": "AuthController_revokeTokens",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tokens del usuario invalidados correctamente.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RevokeTokensResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Revoca todos los tokens de un usuario en Firebase Authentication",
+                "tags": [
+                    "Autenticación"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/auth/validate-recover-token": {
+            "post": {
+                "operationId": "AuthController_validateTokenGenerated",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ValidateAuthTokenDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token validado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidateAuthTokenResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Valida un token de recuperación de contraseña",
+                "tags": [
+                    "Autenticación"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/auth/password-reset/status": {
+            "get": {
+                "operationId": "AuthController_getPasswordResetStatus",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "required": true,
+                        "in": "query",
+                        "description": "Email del usuario para consultar el estado",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Estado de rate limiting obtenido exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PasswordResetStatusDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Consulta el estado de rate limiting para recuperación de contraseña",
+                "tags": [
+                    "Autenticación"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/plans": {
+            "get": {
+                "operationId": "PlanController_findAllPlans",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de planes",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PlanDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener todos los planes con beneficios",
+                "tags": [
+                    "Plans"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/plans/change-plan": {
+            "post": {
+                "operationId": "PlanController_changePlan",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PlanChangeDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Plan cambiado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlanDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Cambiar el plan de la compañía y mostrar beneficios",
+                "tags": [
+                    "Plans"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/plans/company-plan": {
+            "get": {
+                "operationId": "PlanController_getCompanyPlan",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Plan de la empresa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlanDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener el plan de la empresa",
+                "tags": [
+                    "Plans"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/benefits/{planId}": {
+            "get": {
+                "operationId": "BenefitController_findAllBenefitsByPlan",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "planId",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID del plan para filtrar los beneficios",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de beneficios",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BenefitDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Obtener todos los beneficios",
+                "tags": [
+                    "Benefits"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/invoice/list": {
+            "post": {
+                "operationId": "InvoiceController_listInvoices",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/InvoiceListDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Listado paginado de facturas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "items": [],
+                                        "totalItems": 100,
+                                        "totalPages": 10,
+                                        "currentPage": 1,
+                                        "limit": 10
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Listado de facturas (paginado, buscador, ordenamiento)",
+                "tags": [
+                    "Facturación"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/invoice/{code}": {
+            "get": {
+                "operationId": "InvoiceController_getInvoiceByCode",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "required": true,
+                        "in": "path",
+                        "description": "Código de la factura",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Factura encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Invoice"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Consultar factura por Code",
+                "tags": [
+                    "Facturación"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/invoice": {
+            "post": {
+                "operationId": "InvoiceController_createInvoice",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateInvoiceDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Factura creada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Invoice"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Crear nueva factura",
+                "tags": [
+                    "Facturación"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/usage-history/list": {
+            "post": {
+                "operationId": "UsageHistoryController_listUsageHistory",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UsageHistoryListDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Listado paginado del histórico de uso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "items": [],
+                                        "totalItems": 50,
+                                        "totalPages": 5,
+                                        "currentPage": 1,
+                                        "limit": 10
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Listado histórico de uso (paginado, buscador, ordenamiento)",
+                "tags": [
+                    "Histórico de uso"
+                ]
+            }
+        }
+    },
+    "info": {
+        "title": "Modelo de Documentación de APIs",
+        "description": "Esta es una API prototipo configurada con Swagger, diseñada para ser el punto de partida en el desarrollo de nuevas aplicaciones. Contiene configuraciones base y estandarizadas para el manejo de documentación y pruebas.",
+        "version": "1.0",
+        "contact": {}
+    },
+    "tags": [],
+    "servers": [],
+    "components": {
+        "securitySchemes": {
+            "bearer": {
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+                "type": "http"
+            }
+        },
+        "schemas": {
+            "ParametrizableDataResponseDto": {
+                "type": "object",
+                "properties": {
+                    "jwt_default_expiration": {
+                        "type": "number",
+                        "description": "Expiración por defecto del JWT en minutos",
+                        "example": 60
+                    },
+                    "token_password_reset_expiration_minutes": {
+                        "type": "number",
+                        "description": "Expiración del token de recuperación de contraseña en minutos",
+                        "example": 30
+                    },
+                    "token_activate_account_expiration_minutes": {
+                        "type": "number",
+                        "description": "Expiración del token de activación de cuenta en minutos",
+                        "example": 60
+                    },
+                    "lock_policy_enabled": {
+                        "type": "boolean",
+                        "description": "Indica si la política de bloqueo está habilitada",
+                        "example": true
+                    },
+                    "max_failed_login_attempts": {
+                        "type": "number",
+                        "description": "Número máximo de intentos fallidos de inicio de sesión antes de bloquear la cuenta",
+                        "example": 5
+                    },
+                    "account_unlock_minutes": {
+                        "type": "number",
+                        "description": "Duración en minutos para desbloquear la cuenta después de ser bloqueada",
+                        "example": 30
+                    },
+                    "max_password_reset_attempts": {
+                        "type": "number",
+                        "description": "Número máximo de solicitudes de recuperación de contraseña permitidas",
+                        "example": 3
+                    },
+                    "password_reset_attempts_window_hours": {
+                        "type": "number",
+                        "description": "Ventana de tiempo en horas para el límite de solicitudes de recuperación",
+                        "example": 24
+                    }
+                },
+                "required": [
+                    "jwt_default_expiration",
+                    "token_password_reset_expiration_minutes",
+                    "token_activate_account_expiration_minutes",
+                    "lock_policy_enabled",
+                    "max_failed_login_attempts",
+                    "account_unlock_minutes",
+                    "max_password_reset_attempts",
+                    "password_reset_attempts_window_hours"
+                ]
+            },
+            "UpdateParametrizableDataDto": {
+                "type": "object",
+                "properties": {
+                    "jwt_default_expiration": {
+                        "type": "number",
+                        "description": "Expiración por defecto del JWT en minutos",
+                        "example": 60
+                    },
+                    "token_password_reset_expiration_minutes": {
+                        "type": "number",
+                        "description": "Expiración del token de recuperación de contraseña en minutos",
+                        "example": 30
+                    },
+                    "token_activate_account_expiration_minutes": {
+                        "type": "number",
+                        "description": "Expiración del token de activación de cuenta en minutos",
+                        "example": 60
+                    },
+                    "lock_policy_enabled": {
+                        "type": "boolean",
+                        "description": "Indica si la política de bloqueo está habilitada",
+                        "example": true
+                    },
+                    "max_failed_login_attempts": {
+                        "type": "number",
+                        "description": "Número máximo de intentos fallidos de inicio de sesión antes de bloquear la cuenta",
+                        "example": 5
+                    },
+                    "account_unlock_minutes": {
+                        "type": "number",
+                        "description": "Duración en minutos para desbloquear la cuenta después de ser bloqueada",
+                        "example": 30
+                    },
+                    "max_password_reset_attempts": {
+                        "type": "number",
+                        "description": "Número máximo de solicitudes de recuperación de contraseña permitidas",
+                        "example": 3
+                    },
+                    "password_reset_attempts_window_hours": {
+                        "type": "number",
+                        "description": "Ventana de tiempo en horas para el límite de solicitudes de recuperación",
+                        "example": 24
+                    }
+                }
+            },
+            "UserInitialRegisterDto": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "Correo electrónico del usuario"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "Contraseña del usuario"
+                    },
+                    "accepted_terms": {
+                        "type": "boolean",
+                        "description": "Acepta términos y condiciones"
+                    }
+                },
+                "required": [
+                    "email",
+                    "password",
+                    "accepted_terms"
+                ]
+            },
+            "UserResponseDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "description": "ID único del usuario"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Correo electrónico del usuario"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "description": "Teléfono del usuario"
+                    },
+                    "full_name": {
+                        "type": "string",
+                        "description": "Nombre completo del usuario"
+                    },
+                    "is_bo": {
+                        "type": "boolean",
+                        "description": "Indica si es usuario backoffice"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "Estado del usuario",
+                        "enum": [
+                            "Activo",
+                            "Pendiente",
+                            "Inactivo",
+                            "Eliminado"
+                        ]
+                    },
+                    "is_enabled": {
+                        "type": "boolean",
+                        "description": "Indica si el usuario está habilitado"
+                    },
+                    "accepted_terms": {
+                        "type": "boolean",
+                        "description": "Acepta términos y condiciones"
+                    },
+                    "role": {
+                        "type": "string",
+                        "description": "Rol del usuario"
+                    },
+                    "role_id": {
+                        "type": "number",
+                        "description": "ID del rol del usuario"
+                    },
+                    "teams": {
+                        "description": "Equipos a los que pertenece el usuario",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "identification": {
+                        "type": "string",
+                        "description": "Identificación del usuario"
+                    },
+                    "company_id": {
+                        "type": "string",
+                        "description": "ID de la compañía"
+                    },
+                    "company": {
+                        "type": "object",
+                        "description": "Compañía asociada"
+                    },
+                    "created_at": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Fecha de creación del usuario"
+                    },
+                    "updated_at": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Fecha de actualización del usuario"
+                    },
+                    "updated_by": {
+                        "type": "number",
+                        "description": "Usuario que actualizó"
+                    }
+                },
+                "required": [
+                    "id",
+                    "email",
+                    "is_bo",
+                    "is_enabled",
+                    "accepted_terms",
+                    "role",
+                    "created_at",
+                    "updated_at"
+                ]
+            },
+            "CompanyRegisterDto": {
+                "type": "object",
+                "properties": {
+                    "company_name": {
+                        "type": "string",
+                        "description": "Nombre de la empresa"
+                    },
+                    "company_size_id": {
+                        "type": "number",
+                        "description": "ID del tamaño de la empresa"
+                    },
+                    "main_usage_id": {
+                        "type": "number",
+                        "description": "ID del uso principal"
+                    },
+                    "industry_id": {
+                        "type": "number",
+                        "description": "ID de la industria"
+                    },
+                    "country_id": {
+                        "type": "number",
+                        "description": "ID del país"
+                    },
+                    "whatsapp": {
+                        "type": "string",
+                        "description": "WhatsApp de la empresa"
+                    },
+                    "main_usage_other": {
+                        "type": "string",
+                        "description": "Otro uso principal"
+                    },
+                    "monthly_prequalifications": {
+                        "type": "number",
+                        "description": "Precalificaciones mensuales"
+                    }
+                },
+                "required": [
+                    "company_name",
+                    "company_size_id",
+                    "main_usage_id",
+                    "industry_id",
+                    "country_id"
+                ]
+            },
+            "CompleteRegisterDto": {
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "number",
+                        "description": "ID del usuario"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "Contraseña del usuario"
+                    },
+                    "company": {
+                        "description": "Datos de la compañía",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/CompanyRegisterDto"
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "user_id",
+                    "password",
+                    "company"
+                ]
+            },
+            "PermissionDetailDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "module": {
+                        "type": "string"
+                    },
+                    "can_view": {
+                        "type": "boolean"
+                    },
+                    "can_create": {
+                        "type": "boolean"
+                    },
+                    "can_edit": {
+                        "type": "boolean"
+                    },
+                    "can_delete": {
+                        "type": "boolean"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "module",
+                    "can_view",
+                    "can_create",
+                    "can_edit",
+                    "can_delete",
+                    "created_at",
+                    "updated_at"
+                ]
+            },
+            "RoleDetailResponseDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "is_super_admin": {
+                        "type": "boolean"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    },
+                    "permissions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PermissionDetailDto"
+                        }
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "is_super_admin",
+                    "created_at",
+                    "updated_at",
+                    "permissions"
+                ]
+            },
+            "CompleteRegisterResponseDto": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "$ref": "#/components/schemas/UserResponseDto"
+                    },
+                    "access_token": {
+                        "type": "string",
+                        "description": "Token de acceso de Firebase"
+                    },
+                    "refresh_token": {
+                        "type": "string",
+                        "description": "Refresh token de Firebase"
+                    },
+                    "expires_in": {
+                        "type": "number",
+                        "description": "Expiración del token en segundos"
+                    },
+                    "rol": {
+                        "description": "Detalle del rol del usuario",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/RoleDetailResponseDto"
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "user",
+                    "access_token",
+                    "refresh_token",
+                    "expires_in",
+                    "rol"
+                ]
+            },
+            "UpdatePasswordDto": {
+                "type": "object",
+                "properties": {
+                    "userId": {
+                        "type": "number",
+                        "description": "ID del usuario"
+                    },
+                    "newPassword": {
+                        "type": "string",
+                        "description": "Nueva contraseña"
+                    },
+                    "token": {
+                        "type": "string",
+                        "description": "Token de recuperación"
+                    },
+                    "purpose": {
+                        "type": "string",
+                        "description": "Propósito del token de autenticación",
+                        "enum": [
+                            "PASSWORD_RESET",
+                            "ACTIVATE_ACCOUNT",
+                            "SESSION"
+                        ],
+                        "example": "PASSWORD_RESET"
+                    }
+                },
+                "required": [
+                    "userId",
+                    "newPassword",
+                    "token",
+                    "purpose"
+                ]
+            },
+            "UpdatePasswordResponseDto": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success",
+                        "description": "Estado de la operación"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "La contraseña del usuario se actualizó correctamente.",
+                        "description": "Mensaje descriptivo"
+                    }
+                },
+                "required": [
+                    "status",
+                    "message"
+                ]
+            },
+            "CreateUserDto": {
+                "type": "object",
+                "properties": {
+                    "fullName": {
+                        "type": "string",
+                        "description": "Nombre completo del usuario",
+                        "maxLength": 50
+                    },
+                    "identification": {
+                        "type": "string",
+                        "description": "Número de identificación",
+                        "minLength": 5,
+                        "maxLength": 15
+                    },
+                    "phone": {
+                        "type": "string",
+                        "description": "Teléfono, debe incluir extensión de país. Ejemplo: +573001234567",
+                        "minLength": 8,
+                        "maxLength": 16
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Correo electrónico",
+                        "example": "usuario@dominio.com"
+                    },
+                    "roleId": {
+                        "type": "number",
+                        "description": "ID del rol asignado"
+                    },
+                    "teamIds": {
+                        "description": "IDs del equipo de trabajo (opcional)",
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
+                    }
+                },
+                "required": [
+                    "fullName",
+                    "identification",
+                    "phone",
+                    "email",
+                    "roleId"
+                ]
+            },
+            "UserListDto": {
+                "type": "object",
+                "properties": {
+                    "page": {
+                        "type": "number",
+                        "description": "Número de página",
+                        "default": 1
+                    },
+                    "limit": {
+                        "type": "number",
+                        "description": "Cantidad de registros por página",
+                        "default": 10
+                    },
+                    "search": {
+                        "type": "string",
+                        "description": "Texto de búsqueda"
+                    },
+                    "role": {
+                        "type": "number",
+                        "description": "Filtrar por rol"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "Filtrar por estado"
+                    },
+                    "orderBy": {
+                        "description": "Campos para ordenar (puede ser un string o array de strings)",
+                        "default": [
+                            "created_at"
+                        ],
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "orderDirection": {
+                        "type": "array",
+                        "description": "Dirección de ordenamiento para cada campo",
+                        "default": [
+                            "DESC"
+                        ],
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
+                        }
+                    }
+                }
+            },
+            "RoleInfo": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name"
+                ]
+            },
+            "TeamInfo": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name"
+                ]
+            },
+            "CreatedByInfo": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name"
+                ]
+            },
+            "UserListItemResponseDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "fullName": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "isEnabled": {
+                        "type": "boolean"
+                    },
+                    "role": {
+                        "$ref": "#/components/schemas/RoleInfo"
+                    },
+                    "teams": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TeamInfo"
+                        }
+                    },
+                    "createdBy": {
+                        "$ref": "#/components/schemas/CreatedByInfo"
+                    },
+                    "createdAt": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "updatedAt": {
+                        "format": "date-time",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "fullName",
+                    "email",
+                    "phone",
+                    "status",
+                    "isEnabled",
+                    "createdAt",
+                    "updatedAt"
+                ]
+            },
+            "UserListResponseDto": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/UserListItemResponseDto"
+                        }
+                    },
+                    "total": {
+                        "type": "number"
+                    },
+                    "page": {
+                        "type": "number"
+                    },
+                    "limit": {
+                        "type": "number"
+                    },
+                    "totalPages": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "items",
+                    "total",
+                    "page",
+                    "limit",
+                    "totalPages"
+                ]
+            },
+            "RolesNameResponseDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name"
+                ]
+            },
+            "SendActivationEmailResponseDto": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Correo de activación enviado exitosamente"
+                    }
+                },
+                "required": [
+                    "message"
+                ]
+            },
+            "EditUserDto": {
+                "type": "object",
+                "properties": {
+                    "fullName": {
+                        "type": "string",
+                        "description": "Nombre completo del usuario",
+                        "maxLength": 50
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Correo electrónico del usuario",
+                        "maxLength": 100
+                    },
+                    "phone": {
+                        "type": "string",
+                        "description": "Teléfono del usuario, debe incluir extensión de país. Ejemplo: +573001234567",
+                        "maxLength": 16
+                    },
+                    "roleId": {
+                        "type": "number",
+                        "description": "ID del rol del usuario"
+                    },
+                    "teamIds": {
+                        "description": "IDs del equipo de trabajo (opcional)",
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "Estado del usuario",
+                        "enum": [
+                            "Activo",
+                            "Pendiente",
+                            "Inactivo",
+                            "Eliminado"
+                        ]
+                    },
+                    "isEnabled": {
+                        "type": "boolean",
+                        "description": "Indica si el usuario está habilitado"
+                    }
+                },
+                "required": [
+                    "isEnabled"
+                ]
+            },
+            "CompanyInfo": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "companyName": {
+                        "type": "string"
+                    },
+                    "whatsapp": {
+                        "type": "string"
+                    },
+                    "industry": {
+                        "type": "object"
+                    },
+                    "country": {
+                        "type": "object"
+                    },
+                    "companySize": {
+                        "type": "object"
+                    },
+                    "mainUsage": {
+                        "type": "object"
+                    }
+                },
+                "required": [
+                    "id",
+                    "companyName"
+                ]
+            },
+            "PlanInfo": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name"
+                ]
+            },
+            "UserDetailResponseDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "firebaseUid": {
+                        "type": "string"
+                    },
+                    "isBo": {
+                        "type": "boolean"
+                    },
+                    "acceptedTerms": {
+                        "type": "boolean"
+                    },
+                    "fullName": {
+                        "type": "string"
+                    },
+                    "identification": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "role": {
+                        "$ref": "#/components/schemas/RoleInfo"
+                    },
+                    "company": {
+                        "$ref": "#/components/schemas/CompanyInfo"
+                    },
+                    "plan": {
+                        "$ref": "#/components/schemas/PlanInfo"
+                    },
+                    "teams": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TeamInfo"
+                        }
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "updatedAt": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "createdBy": {
+                        "type": "string"
+                    },
+                    "createdByUser": {
+                        "$ref": "#/components/schemas/CreatedByInfo"
+                    },
+                    "updatedByUser": {
+                        "$ref": "#/components/schemas/UserDetailResponseDto"
+                    },
+                    "emailHistory": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "required": [
+                    "id",
+                    "email",
+                    "isBo",
+                    "acceptedTerms",
+                    "status",
+                    "createdAt",
+                    "updatedAt"
+                ]
+            },
+            "UserAuditQueryDto": {
+                "type": "object",
+                "properties": {
+                    "from": {
+                        "type": "string"
+                    },
+                    "to": {
+                        "type": "string"
+                    },
+                    "accion": {
+                        "type": "string"
+                    },
+                    "page": {
+                        "type": "number"
+                    },
+                    "limit": {
+                        "type": "number"
+                    }
+                }
+            },
+            "UserAuditEventDto": {
+                "type": "object",
+                "properties": {
+                    "auditId": {
+                        "type": "string"
+                    },
+                    "userIdAfectado": {
+                        "type": "number"
+                    },
+                    "accion": {
+                        "type": "string"
+                    },
+                    "oldValue": {
+                        "type": "object"
+                    },
+                    "newValue": {
+                        "type": "object"
+                    },
+                    "executedBy": {
+                        "type": "string"
+                    },
+                    "executedAt": {
+                        "type": "string"
+                    },
+                    "ip": {
+                        "type": "string"
+                    },
+                    "userAgent": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "auditId",
+                    "userIdAfectado",
+                    "accion",
+                    "oldValue",
+                    "newValue",
+                    "executedBy",
+                    "executedAt",
+                    "ip",
+                    "userAgent"
+                ]
+            },
+            "UserAuditResponseDto": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/UserAuditEventDto"
+                        }
+                    },
+                    "totalItems": {
+                        "type": "number"
+                    },
+                    "totalPages": {
+                        "type": "number"
+                    },
+                    "currentPage": {
+                        "type": "number"
+                    },
+                    "limit": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "items",
+                    "totalItems",
+                    "totalPages",
+                    "currentPage",
+                    "limit"
+                ]
+            },
+            "UserEmailHistory": {
+                "type": "object",
+                "properties": {}
+            },
+            "ResponseDataDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "Role": {
+                "type": "object",
+                "properties": {}
+            },
+            "RoleListDto": {
+                "type": "object",
+                "properties": {
+                    "page": {
+                        "type": "number",
+                        "description": "Número de página",
+                        "default": 1
+                    },
+                    "limit": {
+                        "type": "number",
+                        "description": "Cantidad de registros por página",
+                        "default": 10
+                    },
+                    "search": {
+                        "type": "string",
+                        "description": "Texto de búsqueda"
+                    },
+                    "orderBy": {
+                        "description": "Campos para ordenar (puede ser un string o array de strings)",
+                        "default": [
+                            "created_at"
+                        ],
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "orderDirection": {
+                        "type": "array",
+                        "description": "Dirección de ordenamiento para cada campo",
+                        "default": [
+                            "DESC"
+                        ],
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
+                        }
+                    }
+                }
+            },
+            "RoleListResponseDto": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Role"
+                        }
+                    },
+                    "total": {
+                        "type": "number"
+                    },
+                    "totalPages": {
+                        "type": "number"
+                    },
+                    "currentPage": {
+                        "type": "number"
+                    },
+                    "limit": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "items",
+                    "total",
+                    "totalPages",
+                    "currentPage",
+                    "limit"
+                ]
+            },
+            "PermissionInputDto": {
+                "type": "object",
+                "properties": {
+                    "moduleId": {
+                        "type": "number",
+                        "description": "ID del módulo"
+                    },
+                    "can_view": {
+                        "type": "boolean",
+                        "description": "Permiso para ver"
+                    },
+                    "can_create": {
+                        "type": "boolean",
+                        "description": "Permiso para crear"
+                    },
+                    "can_edit": {
+                        "type": "boolean",
+                        "description": "Permiso para editar"
+                    },
+                    "can_delete": {
+                        "type": "boolean",
+                        "description": "Permiso para eliminar"
+                    }
+                },
+                "required": [
+                    "moduleId",
+                    "can_view",
+                    "can_create",
+                    "can_edit",
+                    "can_delete"
+                ]
+            },
+            "CreateRoleDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Nombre del rol",
+                        "maxLength": 50
+                    },
+                    "companyId": {
+                        "type": "number",
+                        "description": "ID de la compañía"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Descripción del rol",
+                        "maxLength": 255
+                    },
+                    "permissions": {
+                        "description": "Permisos asignados",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PermissionInputDto"
+                        }
+                    }
+                },
+                "required": [
+                    "name",
+                    "companyId"
+                ]
+            },
+            "RoleCreateResponseDto": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "El rol fue creado con éxito"
+                    },
+                    "roleId": {
+                        "type": "number",
+                        "example": 1
+                    }
+                },
+                "required": [
+                    "message",
+                    "roleId"
+                ]
+            },
+            "PermissionUpdateDto": {
+                "type": "object",
+                "properties": {
+                    "moduleId": {
+                        "type": "number",
+                        "description": "ID del módulo"
+                    },
+                    "can_view": {
+                        "type": "boolean",
+                        "description": "Permiso para ver"
+                    },
+                    "can_create": {
+                        "type": "boolean",
+                        "description": "Permiso para crear"
+                    },
+                    "can_edit": {
+                        "type": "boolean",
+                        "description": "Permiso para editar"
+                    },
+                    "can_delete": {
+                        "type": "boolean",
+                        "description": "Permiso para eliminar"
+                    }
+                },
+                "required": [
+                    "moduleId",
+                    "can_view",
+                    "can_create",
+                    "can_edit",
+                    "can_delete"
+                ]
+            },
+            "UpdateRoleDto": {
+                "type": "object",
+                "properties": {
+                    "roleId": {
+                        "type": "number",
+                        "description": "ID del rol a actualizar"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Nombre del rol",
+                        "maxLength": 50
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Descripción del rol",
+                        "maxLength": 255
+                    },
+                    "permissions": {
+                        "description": "Permisos asignados",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PermissionUpdateDto"
+                        }
+                    }
+                },
+                "required": [
+                    "roleId"
+                ]
+            },
+            "RoleUpdateResponseDto": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Rol actualizado exitosamente"
+                    }
+                },
+                "required": [
+                    "message"
+                ]
+            },
+            "DeleteRoleDto": {
+                "type": "object",
+                "properties": {
+                    "roleId": {
+                        "type": "number",
+                        "description": "ID del rol a eliminar"
+                    }
+                },
+                "required": [
+                    "roleId"
+                ]
+            },
+            "RoleDeleteResponseDto": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Rol inactivado exitosamente"
+                    }
+                },
+                "required": [
+                    "message"
+                ]
+            },
+            "RoleExistsDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Nombre del rol a verificar",
+                        "maxLength": 50
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            },
+            "RoleExistsResponseDto": {
+                "type": "object",
+                "properties": {
+                    "exists": {
+                        "type": "boolean",
+                        "example": true
+                    }
+                },
+                "required": [
+                    "exists"
+                ]
+            },
+            "UserAssociatedToRoleItemDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "fullName": {
+                        "type": "string"
+                    },
+                    "teams": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "required": [
+                    "id",
+                    "fullName"
+                ]
+            },
+            "UserAssociatedToRoleResponseDto": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/UserAssociatedToRoleItemDto"
+                        }
+                    },
+                    "totalItems": {
+                        "type": "number"
+                    },
+                    "totalPages": {
+                        "type": "number"
+                    },
+                    "currentPage": {
+                        "type": "number"
+                    },
+                    "limit": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "items",
+                    "totalItems",
+                    "totalPages",
+                    "currentPage",
+                    "limit"
+                ]
+            },
+            "Modules": {
+                "type": "object",
+                "properties": {}
+            },
+            "UserInfoDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "description": "ID del usuario",
+                        "example": 1
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email del usuario",
+                        "example": "admin@company.com"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Nombre completo del usuario",
+                        "example": "Juan Pérez"
+                    }
+                },
+                "required": [
+                    "id",
+                    "email"
+                ]
+            },
+            "RoleInfoDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "description": "ID del rol",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Nombre del rol",
+                        "example": "Administrador de Sucursal"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Descripción del rol",
+                        "example": "Administra las operaciones de la sucursal"
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "description": "Estado del rol",
+                        "example": true
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "is_active"
+                ]
+            },
+            "RoleAuditEventDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "description": "ID único del evento de auditoría"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "description": "Fecha y hora del evento",
+                        "example": "2024-01-15T10:30:00.000Z"
+                    },
+                    "event_type": {
+                        "type": "string",
+                        "description": "Tipo de evento realizado",
+                        "enum": [
+                            "ROLE_CREATED",
+                            "ROLE_UPDATED",
+                            "ROLE_DELETED"
+                        ],
+                        "example": "ROLE_UPDATED"
+                    },
+                    "role_id": {
+                        "type": "number",
+                        "description": "ID del rol afectado"
+                    },
+                    "role_name": {
+                        "type": "string",
+                        "description": "Nombre del rol afectado",
+                        "example": "Administrador de Sucursal"
+                    },
+                    "performed_by_user_id": {
+                        "type": "string",
+                        "description": "Firebase UID del usuario que realizó la acción"
+                    },
+                    "created_by_user_id": {
+                        "type": "string",
+                        "description": "Firebase UID del usuario que creó el rol originalmente"
+                    },
+                    "user_info": {
+                        "description": "Información del usuario que realizó la acción",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/UserInfoDto"
+                            }
+                        ]
+                    },
+                    "created_by_info": {
+                        "description": "Información del usuario que creó el rol originalmente",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/UserInfoDto"
+                            }
+                        ]
+                    },
+                    "role_info": {
+                        "description": "Información del rol afectado",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/RoleInfoDto"
+                            }
+                        ]
+                    },
+                    "permissions": {
+                        "type": "object",
+                        "description": "Permisos del rol después del cambio",
+                        "example": [
+                            {
+                                "moduleId": 1,
+                                "module_name": "Usuarios",
+                                "can_view": true,
+                                "can_create": true,
+                                "can_edit": true,
+                                "can_delete": false
+                            },
+                            {
+                                "moduleId": 2,
+                                "module_name": "Reportes",
+                                "can_view": true,
+                                "can_create": false,
+                                "can_edit": false,
+                                "can_delete": false
+                            }
+                        ]
+                    },
+                    "ip_address": {
+                        "type": "string",
+                        "description": "Dirección IP desde donde se realizó la acción"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Descripción del rol en el momento del evento"
+                    },
+                    "details": {
+                        "type": "string",
+                        "description": "Detalles adicionales del evento de auditoría"
+                    }
+                },
+                "required": [
+                    "id",
+                    "created_at",
+                    "event_type",
+                    "role_id",
+                    "role_name",
+                    "performed_by_user_id",
+                    "created_by_user_id",
+                    "permissions"
+                ]
+            },
+            "RoleAuditListQueryDto": {
+                "type": "object",
+                "properties": {
+                    "page": {
+                        "type": "number",
+                        "description": "Número de página",
+                        "example": 1
+                    },
+                    "limit": {
+                        "type": "number",
+                        "description": "Elementos por página",
+                        "example": 10
+                    },
+                    "search": {
+                        "type": "string",
+                        "description": "Término de búsqueda (busca en nombre del rol)"
+                    },
+                    "orderBy": {
+                        "description": "Campos para ordenar",
+                        "example": [
+                            "date",
+                            "affectedRole",
+                            "details",
+                            "modifiedBy",
+                            "createdBy"
+                        ],
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "orderDirection": {
+                        "description": "Dirección del ordenamiento",
+                        "example": [
+                            "DESC",
+                            "ASC"
+                        ],
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "AuditRoleHistoryListResponseDto": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/RoleAuditEventDto"
+                        }
+                    },
+                    "total": {
+                        "type": "number"
+                    },
+                    "totalPages": {
+                        "type": "number"
+                    },
+                    "currentPage": {
+                        "type": "number"
+                    },
+                    "limit": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "items",
+                    "total",
+                    "totalPages",
+                    "currentPage",
+                    "limit"
+                ]
+            },
+            "TeamResponseDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "description",
+                    "created_at",
+                    "updated_at"
+                ]
+            },
+            "TeamExistsResponseDto": {
+                "type": "object",
+                "properties": {
+                    "exists": {
+                        "type": "boolean",
+                        "example": true,
+                        "description": "Indica si el equipo existe"
+                    }
+                },
+                "required": [
+                    "exists"
+                ]
+            },
+            "TeamMemberDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "fullName": {
+                        "type": "object",
+                        "nullable": true
+                    },
+                    "role": {
+                        "nullable": true,
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/RoleInfo"
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "id",
+                    "email",
+                    "fullName",
+                    "role"
+                ]
+            },
+            "TeamDetailDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "object",
+                        "nullable": true
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    },
+                    "updatedAt": {
+                        "type": "string"
+                    },
+                    "deletedAt": {
+                        "type": "object",
+                        "nullable": true
+                    },
+                    "members": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TeamMemberDto"
+                        }
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "description",
+                    "createdAt",
+                    "updatedAt",
+                    "deletedAt",
+                    "members"
+                ]
+            },
+            "TeamDetailsResponseDto": {
+                "type": "object",
+                "properties": {
+                    "teams": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TeamDetailDto"
+                        }
+                    },
+                    "notFoundIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
+                    }
+                },
+                "required": [
+                    "teams",
+                    "notFoundIds"
+                ]
+            },
+            "CreateTeamDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Nombre del equipo",
+                        "example": "Equipo de Desarrollo"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Descripción del equipo",
+                        "example": "Este es un equipo de desarrollo"
+                    },
+                    "userIds": {
+                        "description": "IDs de los usuarios miembros del equipo (puede ser vacío)",
+                        "example": [
+                            1,
+                            2,
+                            3
+                        ],
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "required": [
+                    "name",
+                    "description"
+                ]
+            },
+            "TeamListDto": {
+                "type": "object",
+                "properties": {
+                    "page": {
+                        "type": "number",
+                        "description": "Page number",
+                        "default": 1
+                    },
+                    "limit": {
+                        "type": "number",
+                        "description": "Records per page",
+                        "default": 10
+                    },
+                    "search": {
+                        "type": "string",
+                        "description": "Search by name or description"
+                    },
+                    "dateFrom": {
+                        "type": "string",
+                        "description": "Filter created_at from (ISO date)"
+                    },
+                    "dateTo": {
+                        "type": "string",
+                        "description": "Filter created_at to (ISO date)"
+                    },
+                    "orderBy": {
+                        "description": "Order by fields",
+                        "default": [
+                            "created_at"
+                        ],
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "orderDirection": {
+                        "type": "array",
+                        "description": "Order directions",
+                        "default": [
+                            "DESC"
+                        ],
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
+                        }
+                    }
+                }
+            },
+            "TeamListResponseDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "TeamNameExistsResponseDto": {
+                "type": "object",
+                "properties": {
+                    "exists": {
+                        "type": "boolean",
+                        "example": true
+                    }
+                },
+                "required": [
+                    "exists"
+                ]
+            },
+            "TeamDeleteResponseDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "deleted": {
+                        "type": "boolean"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "deleted"
+                ]
+            },
+            "CountryResponseDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "AuthLoginDto": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "Correo electrónico del usuario"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "Contraseña del usuario (encriptada)"
+                    }
+                },
+                "required": [
+                    "email",
+                    "password"
+                ]
+            },
+            "AuthLoginResponseDto": {
+                "type": "object",
+                "properties": {
+                    "access_token": {
+                        "type": "string"
+                    },
+                    "id_token": {
+                        "type": "string"
+                    },
+                    "refresh_token": {
+                        "type": "string"
+                    },
+                    "expires_in": {
+                        "type": "number"
+                    },
+                    "rol": {
+                        "description": "Detalle del rol del usuario",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/RoleDetailResponseDto"
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "access_token",
+                    "id_token",
+                    "refresh_token",
+                    "expires_in",
+                    "rol"
+                ]
+            },
+            "GenerateAuthLinkDto": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "Correo electrónico del usuario"
+                    },
+                    "purpose": {
+                        "type": "string",
+                        "description": "Propósito del link de autenticación",
+                        "enum": [
+                            "PASSWORD_RESET",
+                            "ACTIVATE_ACCOUNT",
+                            "SESSION"
+                        ],
+                        "example": "PASSWORD_RESET"
+                    }
+                },
+                "required": [
+                    "email",
+                    "purpose"
+                ]
+            },
+            "EncryptTextDto": {
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "type": "string",
+                        "description": "Texto a encriptar",
+                        "example": "miTexto"
+                    }
+                },
+                "required": [
+                    "text"
+                ]
+            },
+            "RevokeTokensResponseDto": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success",
+                        "description": "Estado de la operación"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Tokens del usuario invalidados correctamente.",
+                        "description": "Mensaje descriptivo"
+                    }
+                },
+                "required": [
+                    "status",
+                    "message"
+                ]
+            },
+            "ValidateAuthTokenDto": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "string",
+                        "description": "Token de autenticación a validar"
+                    },
+                    "purpose": {
+                        "type": "string",
+                        "description": "Propósito del token de autenticación",
+                        "enum": [
+                            "PASSWORD_RESET",
+                            "ACTIVATE_ACCOUNT",
+                            "SESSION"
+                        ],
+                        "example": "PASSWORD_RESET"
+                    }
+                },
+                "required": [
+                    "token",
+                    "purpose"
+                ]
+            },
+            "ValidateAuthTokenResponseDto": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "Email del usuario"
+                    },
+                    "isValid": {
+                        "type": "boolean",
+                        "description": "Indica si el token es válido"
+                    }
+                },
+                "required": [
+                    "email",
+                    "isValid"
+                ]
+            },
+            "PasswordResetStatusDto": {
+                "type": "object",
+                "properties": {
+                    "canRequest": {
+                        "type": "boolean",
+                        "description": "Indica si el usuario puede realizar una nueva solicitud",
+                        "example": true
+                    },
+                    "currentAttempts": {
+                        "type": "number",
+                        "description": "Número actual de intentos en la ventana de tiempo",
+                        "example": 2
+                    },
+                    "maxAttempts": {
+                        "type": "number",
+                        "description": "Número máximo de intentos permitidos",
+                        "example": 3
+                    },
+                    "windowHours": {
+                        "type": "number",
+                        "description": "Ventana de tiempo en horas",
+                        "example": 24
+                    },
+                    "resetTime": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Fecha y hora cuando se resetea el límite (si está bloqueado)",
+                        "example": "2025-09-15T14:30:00Z"
+                    },
+                    "firstAttemptTime": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Fecha y hora del primer intento en la ventana actual",
+                        "example": "2025-09-15T10:30:00Z"
+                    },
+                    "timeUntilReset": {
+                        "type": "number",
+                        "description": "Minutos restantes hasta poder intentar de nuevo",
+                        "example": 45
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "Mensaje descriptivo del estado actual",
+                        "example": "Puedes realizar 1 solicitud más"
+                    }
+                },
+                "required": [
+                    "canRequest",
+                    "currentAttempts",
+                    "maxAttempts",
+                    "windowHours",
+                    "message"
+                ]
+            },
+            "BenefitDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "description": "ID del beneficio",
+                        "example": 1
+                    },
+                    "planId": {
+                        "type": "number",
+                        "description": "ID del plan asociado",
+                        "example": 1
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Descripción del beneficio",
+                        "example": "Este es un beneficio de prueba"
+                    },
+                    "content": {
+                        "type": "string",
+                        "description": "Contenido de la descripción",
+                        "example": "Acceso a soporte 24/7"
+                    },
+                    "order": {
+                        "type": "number",
+                        "description": "Orden de la descripción",
+                        "example": 1
+                    }
+                },
+                "required": [
+                    "id",
+                    "planId",
+                    "description",
+                    "content",
+                    "order"
+                ]
+            },
+            "PlanDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "description": "ID del plan",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "Título del plan",
+                        "example": "Plan Pro"
+                    },
+                    "price": {
+                        "type": "number",
+                        "description": "Precio del plan",
+                        "example": 100
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "description": "Estado del plan",
+                        "example": true
+                    },
+                    "is_free": {
+                        "type": "boolean",
+                        "description": "Indica si el plan es gratuito",
+                        "example": false
+                    },
+                    "validity": {
+                        "type": "number",
+                        "description": "Validez del plan en días",
+                        "example": 30
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Descripción del plan",
+                        "example": "Este es un plan profesional con todas las características."
+                    },
+                    "benefits": {
+                        "description": "Beneficios del plan",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/BenefitDto"
+                        }
+                    },
+                    "createdAt": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Fecha de creación del plan",
+                        "example": "2023-10-01T12:00:00Z"
+                    },
+                    "updatedAt": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Fecha de actualización del plan",
+                        "example": "2023-10-10T12:00:00Z"
+                    }
+                },
+                "required": [
+                    "id",
+                    "title",
+                    "price",
+                    "is_active",
+                    "is_free",
+                    "validity",
+                    "description",
+                    "benefits",
+                    "createdAt",
+                    "updatedAt"
+                ]
+            },
+            "PlanChangeDto": {
+                "type": "object",
+                "properties": {
+                    "planId": {
+                        "type": "number",
+                        "description": "ID del nuevo plan",
+                        "example": 2
+                    }
+                },
+                "required": [
+                    "planId"
+                ]
+            },
+            "InvoiceListDto": {
+                "type": "object",
+                "properties": {
+                    "page": {
+                        "type": "number",
+                        "default": 1
+                    },
+                    "limit": {
+                        "type": "number",
+                        "default": 10
+                    },
+                    "search": {
+                        "type": "string"
+                    },
+                    "orderBy": {
+                        "example": [
+                            "created_at"
+                        ],
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "orderDirection": {
+                        "type": "array",
+                        "example": [
+                            "DESC"
+                        ],
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
+                        }
+                    }
+                }
+            },
+            "Invoice": {
+                "type": "object",
+                "properties": {}
+            },
+            "CreateInvoiceDto": {
+                "type": "object",
+                "properties": {
+                    "uuid": {
+                        "type": "string",
+                        "description": "UUID de la factura"
+                    },
+                    "emisor_nit": {
+                        "type": "string",
+                        "description": "NIT del emisor"
+                    },
+                    "receptor_nit": {
+                        "type": "string",
+                        "description": "NIT del receptor"
+                    },
+                    "total": {
+                        "type": "number",
+                        "description": "Total de la factura",
+                        "example": 1500.75
+                    },
+                    "dte": {
+                        "type": "object",
+                        "description": "Documento Tributario Electrónico (DTE) completo en formato JSON"
+                    }
+                },
+                "required": [
+                    "uuid",
+                    "emisor_nit",
+                    "receptor_nit",
+                    "total",
+                    "dte"
+                ]
+            },
+            "UsageHistoryListDto": {
+                "type": "object",
+                "properties": {
+                    "page": {
+                        "type": "number",
+                        "default": 1
+                    },
+                    "limit": {
+                        "type": "number",
+                        "default": 10
+                    },
+                    "search": {
+                        "type": "string"
+                    },
+                    "orderBy": {
+                        "example": [
+                            "created_at"
+                        ],
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "orderDirection": {
+                        "type": "array",
+                        "example": [
+                            "DESC"
+                        ],
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

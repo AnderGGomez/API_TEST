@@ -1,0 +1,1701 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/api/list/v1/health": {
+            "get": {
+                "operationId": "HealthController_check",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "The Health Check is successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ok"
+                                        },
+                                        "info": {
+                                            "type": "object",
+                                            "example": {
+                                                "database": {
+                                                    "status": "up"
+                                                }
+                                            },
+                                            "additionalProperties": {
+                                                "type": "object",
+                                                "required": [
+                                                    "status"
+                                                ],
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "additionalProperties": true
+                                            },
+                                            "nullable": true
+                                        },
+                                        "error": {
+                                            "type": "object",
+                                            "example": {},
+                                            "additionalProperties": {
+                                                "type": "object",
+                                                "required": [
+                                                    "status"
+                                                ],
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "additionalProperties": true
+                                            },
+                                            "nullable": true
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "example": {
+                                                "database": {
+                                                    "status": "up"
+                                                }
+                                            },
+                                            "additionalProperties": {
+                                                "type": "object",
+                                                "required": [
+                                                    "status"
+                                                ],
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "additionalProperties": true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "503": {
+                        "description": "The Health Check is not successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "info": {
+                                            "type": "object",
+                                            "example": {
+                                                "database": {
+                                                    "status": "up"
+                                                }
+                                            },
+                                            "additionalProperties": {
+                                                "type": "object",
+                                                "required": [
+                                                    "status"
+                                                ],
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "additionalProperties": true
+                                            },
+                                            "nullable": true
+                                        },
+                                        "error": {
+                                            "type": "object",
+                                            "example": {
+                                                "redis": {
+                                                    "status": "down",
+                                                    "message": "Could not connect"
+                                                }
+                                            },
+                                            "additionalProperties": {
+                                                "type": "object",
+                                                "required": [
+                                                    "status"
+                                                ],
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "additionalProperties": true
+                                            },
+                                            "nullable": true
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "example": {
+                                                "database": {
+                                                    "status": "up"
+                                                },
+                                                "redis": {
+                                                    "status": "down",
+                                                    "message": "Could not connect"
+                                                }
+                                            },
+                                            "additionalProperties": {
+                                                "type": "object",
+                                                "required": [
+                                                    "status"
+                                                ],
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "additionalProperties": true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Health"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/list/validate-name": {
+            "get": {
+                "operationId": "ListController_validateListName",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidateListNameDataDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Valida si un nombre de lista ya está en uso para una compañía",
+                "tags": [
+                    "List"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/list/list": {
+            "post": {
+                "operationId": "ListController_listLists",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ListQueryDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Listado paginado de listas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListPagedResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Listado de listas paginado, con buscador, filtros y ordenamiento",
+                "tags": [
+                    "List"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/list/{id}": {
+            "delete": {
+                "operationId": "ListController_deleteList",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Eliminar una lista y su data asociada",
+                "tags": [
+                    "List"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/list/create": {
+            "post": {
+                "operationId": "ListController_createList",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateListDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Crear una nueva lista con todos sus registros relacionados",
+                "tags": [
+                    "List"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/list/create-catalog": {
+            "post": {
+                "operationId": "ListController_createCatalog",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateCatalogDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Crear un nuevo catálogo con valores agrupados dinámicamente",
+                "tags": [
+                    "List"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/list/metadata": {
+            "post": {
+                "operationId": "ListController_getListsMetadataByIds",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "ids",
+                        "required": true,
+                        "in": "query",
+                        "description": "IDs de listas separados por coma. Ej: 10,11,12",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListMetadataResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Consultar metadatos de Listas AML por listado de IDs",
+                "tags": [
+                    "List"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/list/{id}/exists": {
+            "get": {
+                "operationId": "ListController_listExists",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListExistsResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Verifica existencia de una Lista AML por ID",
+                "tags": [
+                    "List"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/tag": {
+            "get": {
+                "operationId": "TagController_findAllByCompanyId",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TagResponseDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Consultar todos los tags (etiquetas) disponibles",
+                "tags": [
+                    "Tags"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/file-upload/upload": {
+            "post": {
+                "operationId": "FileUploadController_uploadFile",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/components/schemas/PLATFORM_ENUM"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "description": "Archivo CSV o XML"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Subir archivo de lista (CSV o XML)",
+                "tags": [
+                    "File Upload"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/file-catalog-upload/upload": {
+            "post": {
+                "operationId": "FileCatalogController_parse",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/components/schemas/PLATFORM_ENUM"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "description": "Archivo CSV o XML. Debe contener al menos una columna/propiedad de puntaje."
+                                    }
+                                },
+                                "required": [
+                                    "file"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "summary": "Parsear archivo de catalogo (CSV o XML) con columnas de puntaje",
+                "tags": [
+                    "File Catalog Upload"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/catalog/export-xlsx": {
+            "post": {
+                "operationId": "CatalogXlsxController_exportXlsx",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/components/schemas/PLATFORM_ENUM"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "data": {
+                                        "type": "object",
+                                        "additionalProperties": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "value": {
+                                                        "type": "string"
+                                                    },
+                                                    "score": {
+                                                        "oneOf": [
+                                                            {
+                                                                "type": "number"
+                                                            },
+                                                            {
+                                                                "type": "string"
+                                                            },
+                                                            {
+                                                                "type": "null"
+                                                            }
+                                                        ]
+                                                    }
+                                                },
+                                                "required": [
+                                                    "value"
+                                                ]
+                                            }
+                                        },
+                                        "description": "Objeto DataGroup: { [grupo]: [{value, score}] }"
+                                    }
+                                },
+                                "required": [
+                                    "data"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "summary": "Exportar objeto \"data\" (DataGroup) a XLSX",
+                "tags": [
+                    "Catalog XLSX"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/catalog/import-xlsx": {
+            "post": {
+                "operationId": "CatalogXlsxController_importXlsx",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/components/schemas/PLATFORM_ENUM"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "description": "Archivo XLSX a importar (máximo 300MB)"
+                                    }
+                                },
+                                "required": [
+                                    "file"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "summary": "Importar archivo XLSX y retornar objeto CatalogFileUploadResponseDto con metadata y datos parseados",
+                "tags": [
+                    "Catalog XLSX"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/homologation/categories": {
+            "get": {
+                "operationId": "HomologationController_getAllCategoriesWithFields",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/HomologationCategoryResponseDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Consultar todas las categorías con sus campos homologados",
+                "tags": [
+                    "Homologation"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/homologation/auto-homologate": {
+            "post": {
+                "operationId": "HomologationController_autoHomologateHeaders",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AutoHomologationRequestDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AutoHomologationResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Homologación automática de encabezados",
+                "tags": [
+                    "Homologation"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/homologation/sync": {
+            "post": {
+                "operationId": "HomologationController_syncHomologation",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SyncHomologationDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Resultado de la sincronización",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "success": true,
+                                        "message": "Sincronización aplicada correctamente.",
+                                        "createdCategories": 1,
+                                        "deletedCategories": 0,
+                                        "createdFields": 3,
+                                        "deletedFields": 0,
+                                        "skippedCategoryDeletions": 0,
+                                        "skippedFieldDeletions": 0,
+                                        "noChanges": false
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Sincronizar categorías y campos homologados para una compañía",
+                "tags": [
+                    "Homologation"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/homologation/validate-category-name": {
+            "post": {
+                "operationId": "HomologationController_validateCategoryName",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CategoryNameValidationDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Validar nombre de categoría homologada",
+                "tags": [
+                    "Homologation"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/homologation/validate-field-name": {
+            "post": {
+                "operationId": "HomologationController_validateFieldName",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FieldNameValidationDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Validar nombre de campo homologado dentro de una categoría",
+                "tags": [
+                    "Homologation"
+                ]
+            }
+        }
+    },
+    "info": {
+        "title": "Modelo de Documentación de APIs",
+        "description": "Esta es una API prototipo configurada con Swagger, diseñada para ser el punto de partida en el desarrollo de nuevas aplicaciones. Contiene configuraciones base y estandarizadas para el manejo de documentación y pruebas.",
+        "version": "1.0",
+        "contact": {}
+    },
+    "tags": [],
+    "servers": [],
+    "components": {
+        "securitySchemes": {
+            "bearer": {
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+                "type": "http"
+            }
+        },
+        "schemas": {
+            "ValidateListNameDataDto": {
+                "type": "object",
+                "properties": {
+                    "existe": {
+                        "type": "boolean",
+                        "description": "Indica si el nombre existe para la compañía"
+                    }
+                },
+                "required": [
+                    "existe"
+                ]
+            },
+            "ListQueryDto": {
+                "type": "object",
+                "properties": {
+                    "search": {
+                        "type": "string",
+                        "description": "Texto de búsqueda para el nombre de la lista"
+                    },
+                    "page": {
+                        "type": "number",
+                        "description": "Página actual",
+                        "default": 1
+                    },
+                    "limit": {
+                        "type": "number",
+                        "description": "Cantidad de elementos por página",
+                        "default": 10
+                    },
+                    "sort_by": {
+                        "type": "string",
+                        "description": "Campo para ordenar",
+                        "default": "created_at"
+                    },
+                    "sort_order": {
+                        "type": "string",
+                        "description": "Dirección de ordenamiento",
+                        "enum": [
+                            "ASC",
+                            "DESC"
+                        ],
+                        "default": "DESC"
+                    },
+                    "origin": {
+                        "type": "string",
+                        "description": "Filtrar por origen"
+                    },
+                    "context": {
+                        "type": "string",
+                        "description": "Filtrar por contexto",
+                        "enum": [
+                            "product",
+                            "workflow"
+                        ]
+                    }
+                }
+            },
+            "ListPagedResponseDto": {
+                "type": "object",
+                "properties": {
+                    "total": {
+                        "type": "number",
+                        "description": "Total de listas encontradas"
+                    },
+                    "page": {
+                        "type": "number",
+                        "description": "Página actual"
+                    },
+                    "limit": {
+                        "type": "number",
+                        "description": "Cantidad de elementos por página"
+                    },
+                    "items": {
+                        "description": "Listas encontradas",
+                        "type": "array",
+                        "items": {
+                            "type": "object"
+                        }
+                    }
+                },
+                "required": [
+                    "total",
+                    "page",
+                    "limit",
+                    "items"
+                ]
+            },
+            "ApiResponseDto": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "description": "Estado de la respuesta",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "Mensaje de la respuesta",
+                        "example": "Operación exitosa"
+                    },
+                    "data": {
+                        "type": "object",
+                        "description": "Datos de la respuesta"
+                    }
+                },
+                "required": [
+                    "status",
+                    "message"
+                ]
+            },
+            "AutoHomologationResultDto": {
+                "type": "object",
+                "properties": {
+                    "original": {
+                        "type": "string",
+                        "description": "Nombre original del campo"
+                    },
+                    "matched_alias": {
+                        "type": "string",
+                        "description": "Alias homologado"
+                    },
+                    "homologated_name": {
+                        "type": "string",
+                        "description": "Nombre homologado"
+                    },
+                    "category": {
+                        "type": "string",
+                        "description": "Categoría"
+                    },
+                    "category_id": {
+                        "type": "number",
+                        "description": "ID de la categoría"
+                    }
+                }
+            },
+            "ScoreConfigDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Nombre del score"
+                    },
+                    "value": {
+                        "type": "number",
+                        "description": "Valor del score"
+                    },
+                    "logicalOperator": {
+                        "type": "string",
+                        "description": "Operador lógico del score"
+                    },
+                    "matchPercentage": {
+                        "type": "number",
+                        "description": "Porcentaje de coincidencia del score"
+                    }
+                },
+                "required": [
+                    "name",
+                    "value",
+                    "logicalOperator",
+                    "matchPercentage"
+                ]
+            },
+            "ListPermissionDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "description": "ID del usuario o rol al que se le asigna el permiso"
+                    },
+                    "isRole": {
+                        "type": "boolean",
+                        "description": "Indica si el ID corresponde a un rol (true) o a un usuario (false)"
+                    }
+                },
+                "required": [
+                    "id",
+                    "isRole"
+                ]
+            },
+            "CreateListDto": {
+                "type": "object",
+                "properties": {
+                    "uuidRecord": {
+                        "type": "string",
+                        "description": "UUID del registro de proceso en MongoDB"
+                    },
+                    "headers": {
+                        "description": "Encabezados homologados (puede estar vacío)",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AutoHomologationResultDto"
+                        }
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Nombre de la lista"
+                    },
+                    "tags": {
+                        "description": "Etiquetas asociadas (puede estar vacío)",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Descripción de la lista"
+                    },
+                    "origin": {
+                        "type": "string",
+                        "description": "Origen de la lista"
+                    },
+                    "scoreConfigs": {
+                        "description": "Configuración de score (puede estar vacío)",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ScoreConfigDto"
+                        }
+                    },
+                    "permissions": {
+                        "description": "Permisos de la lista (puede estar vacío)",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ListPermissionDto"
+                        }
+                    },
+                    "context": {
+                        "type": "array",
+                        "description": "Contexto de la lista",
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "product",
+                                "workflow"
+                            ]
+                        }
+                    }
+                },
+                "required": [
+                    "uuidRecord",
+                    "name",
+                    "origin"
+                ]
+            },
+            "CatalogHeaderDto": {
+                "type": "object",
+                "properties": {
+                    "original": {
+                        "type": "string",
+                        "description": "Nombre original del header"
+                    }
+                },
+                "required": [
+                    "original"
+                ]
+            },
+            "CreateCatalogDto": {
+                "type": "object",
+                "properties": {
+                    "context": {
+                        "description": "Contexto del catálogo",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "data": {
+                        "type": "object",
+                        "description": "Valores del catálogo agrupados por categoría dinámicamente",
+                        "example": {
+                            "PROFESIÓN": [
+                                {
+                                    "value": "DOCTOR",
+                                    "score": null
+                                }
+                            ],
+                            "UBICACIÓN": [
+                                {
+                                    "value": "BOGOTA",
+                                    "score": 100
+                                }
+                            ]
+                        }
+                    },
+                    "headers": {
+                        "description": "Headers originales",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CatalogHeaderDto"
+                        }
+                    },
+                    "origin": {
+                        "type": "string",
+                        "description": "Origen del archivo"
+                    },
+                    "permissions": {
+                        "description": "Permisos asignados",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ListPermissionDto"
+                        }
+                    },
+                    "uuidRecord": {
+                        "type": "string",
+                        "description": "UUID del proceso o batch"
+                    }
+                },
+                "required": [
+                    "context",
+                    "data",
+                    "headers",
+                    "origin",
+                    "permissions",
+                    "uuidRecord"
+                ]
+            },
+            "ListHomologationFieldDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "original_name": {
+                        "type": "string"
+                    },
+                    "homologated_name": {
+                        "type": "string"
+                    },
+                    "homologation_field_id": {
+                        "type": "number"
+                    },
+                    "homologation_category_id": {
+                        "type": "number"
+                    },
+                    "homologation_category_name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "original_name"
+                ]
+            },
+            "ListScoreConfigDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "field_name": {
+                        "type": "string"
+                    },
+                    "logical_operator": {
+                        "type": "string"
+                    },
+                    "match_percentage": {
+                        "type": "number"
+                    },
+                    "score": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "id",
+                    "field_name",
+                    "logical_operator",
+                    "match_percentage",
+                    "score"
+                ]
+            },
+            "ListMetadataItemDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "origin": {
+                        "type": "string"
+                    },
+                    "homologation": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ListHomologationFieldDto"
+                        }
+                    },
+                    "scoreConfigs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ListScoreConfigDto"
+                        }
+                    },
+                    "context": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "hasHomologation": {
+                        "type": "boolean"
+                    },
+                    "permittedUserIds": {
+                        "description": "IDs de usuarios con permiso explícito",
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
+                    },
+                    "permittedRoleIds": {
+                        "description": "IDs de roles con permiso explícito",
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
+                    },
+                    "hasPermissions": {
+                        "type": "boolean"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "tags",
+                    "origin",
+                    "hasHomologation"
+                ]
+            },
+            "ListMetadataResponseDto": {
+                "type": "object",
+                "properties": {
+                    "listas": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ListMetadataItemDto"
+                        }
+                    },
+                    "idsNoEncontrados": {
+                        "description": "IDs solicitados que no fueron encontrados",
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
+                    }
+                },
+                "required": [
+                    "listas",
+                    "idsNoEncontrados"
+                ]
+            },
+            "ListExistsResponseDto": {
+                "type": "object",
+                "properties": {
+                    "exists": {
+                        "type": "boolean",
+                        "description": "Indica si la lista existe"
+                    }
+                },
+                "required": [
+                    "exists"
+                ]
+            },
+            "TagResponseDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name"
+                ]
+            },
+            "PLATFORM_ENUM": {
+                "type": "string",
+                "enum": [
+                    "web",
+                    "bo"
+                ]
+            },
+            "HomologationFieldDto": {
+                "type": "object",
+                "properties": {
+                    "homologated_name": {
+                        "type": "string",
+                        "description": "Nombre homologado principal del campo"
+                    },
+                    "aliases": {
+                        "description": "Lista de alias del campo",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "description": "Indica si el campo está activo"
+                    }
+                },
+                "required": [
+                    "homologated_name",
+                    "aliases",
+                    "is_active"
+                ]
+            },
+            "HomologationCategoryResponseDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "description": "ID de la categoría"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Nombre de la categoría"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Descripción de la categoría"
+                    },
+                    "custom": {
+                        "type": "boolean",
+                        "description": "Indica si la categoría es personalizada",
+                        "default": false
+                    },
+                    "fields": {
+                        "description": "Campos homologados de la categoría",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/HomologationFieldDto"
+                        }
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "custom",
+                    "fields"
+                ]
+            },
+            "AutoHomologationRequestDto": {
+                "type": "object",
+                "properties": {
+                    "headers": {
+                        "description": "Lista de encabezados a homologar",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "required": [
+                    "headers"
+                ]
+            },
+            "AutoHomologationResponseDto": {
+                "type": "object",
+                "properties": {
+                    "results": {
+                        "description": "Resultado de la homologación automática",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AutoHomologationResultDto"
+                        }
+                    }
+                },
+                "required": [
+                    "results"
+                ]
+            },
+            "SyncHomologationFieldDto": {
+                "type": "object",
+                "properties": {
+                    "homologated_name": {
+                        "type": "string",
+                        "example": "Número_de-empleados (Histórico)/2024, % crecimiento #1: $Total &Bruto*"
+                    },
+                    "aliases": {
+                        "example": [
+                            "N° empleados",
+                            "Empleados_totales",
+                            "Empleados (Histórico)"
+                        ],
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "example": true
+                    }
+                },
+                "required": [
+                    "homologated_name",
+                    "aliases"
+                ]
+            },
+            "SyncHomologationCategoryDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Información_financiera - Anual (Historico)/2024: % & #"
+                    },
+                    "fields": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SyncHomologationFieldDto"
+                        }
+                    }
+                },
+                "required": [
+                    "name",
+                    "fields"
+                ]
+            },
+            "SyncHomologationDto": {
+                "type": "object",
+                "properties": {
+                    "categories": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SyncHomologationCategoryDto"
+                        }
+                    }
+                },
+                "required": [
+                    "categories"
+                ]
+            },
+            "CategoryNameValidationDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Personal Loans",
+                        "description": "Name of the homologation category"
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            },
+            "FieldNameValidationDto": {
+                "type": "object",
+                "properties": {
+                    "categoryId": {
+                        "type": "number",
+                        "example": 3,
+                        "description": "ID of the homologation category"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Sitios web",
+                        "description": "Name of the homologation field"
+                    }
+                },
+                "required": [
+                    "categoryId",
+                    "name"
+                ]
+            }
+        }
+    }
+}
