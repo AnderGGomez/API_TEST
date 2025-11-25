@@ -415,6 +415,71 @@
                 ]
             }
         },
+        "/api/list/v1/{platform}/list/update-catalog/{id}": {
+            "put": {
+                "operationId": "ListController_updateCatalog",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID del catálogo a actualizar (debe ser un número entero positivo)",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateCatalogDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Datos inválidos en el body o parámetros"
+                    },
+                    "404": {
+                        "description": "Catálogo no encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Actualizar un catálogo existente",
+                "tags": [
+                    "List"
+                ]
+            }
+        },
         "/api/list/v1/{platform}/list/metadata": {
             "post": {
                 "operationId": "ListController_getListsMetadataByIds",
@@ -510,6 +575,240 @@
                     }
                 ],
                 "summary": "Verifica existencia de una Lista AML por ID",
+                "tags": [
+                    "List"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/list/detail/{id}": {
+            "get": {
+                "operationId": "ListController_getListDetails",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Retorna los detalles de una lista en especifico",
+                "tags": [
+                    "List"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/list/update-score-permissions/{listId}": {
+            "post": {
+                "operationId": "ListController_updateList",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "listId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateListDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Editar una lista con todos sus registros relacionados",
+                "tags": [
+                    "List"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/list/by-field-config": {
+            "get": {
+                "operationId": "ListController_getListsByFieldConfig",
+                "parameters": [
+                    {
+                        "name": "inputText",
+                        "required": true,
+                        "in": "query",
+                        "description": "Texto de entrada para buscar coincidencias",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listas encontradas con coincidencias en FieldConfig",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error al buscar listas con coincidencias en FieldConfig"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Buscar listas por coincidencias en FieldConfig",
+                "tags": [
+                    "List"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/list/by-type/{type}": {
+            "get": {
+                "operationId": "ListController_getGlobalListsByType",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Listas globales (sin company) filtradas por tipo",
+                "tags": [
+                    "List"
+                ]
+            }
+        },
+        "/api/list/v1/{platform}/list/catalogs": {
+            "get": {
+                "operationId": "ListController_getCompanyCatalogs",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CatalogsResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Listar catálogos disponibles de la compañía (sin data interna)",
                 "tags": [
                     "List"
                 ]
@@ -627,7 +926,7 @@
                                     "file": {
                                         "type": "string",
                                         "format": "binary",
-                                        "description": "Archivo CSV o XML. Debe contener al menos una columna/propiedad de puntaje."
+                                        "description": "Archivo CSV o XML. Puede contener opcionalmente columnas de puntaje. Si no hay columnas de puntaje, los scores estarán vacíos."
                                     }
                                 },
                                 "required": [
@@ -642,7 +941,12 @@
                         "description": ""
                     }
                 },
-                "summary": "Parsear archivo de catalogo (CSV o XML) con columnas de puntaje",
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Parsear archivo de catalogo (CSV o XML) con o sin columnas de puntaje",
                 "tags": [
                     "File Catalog Upload"
                 ]
@@ -666,43 +970,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "data": {
-                                        "type": "object",
-                                        "additionalProperties": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "value": {
-                                                        "type": "string"
-                                                    },
-                                                    "score": {
-                                                        "oneOf": [
-                                                            {
-                                                                "type": "number"
-                                                            },
-                                                            {
-                                                                "type": "string"
-                                                            },
-                                                            {
-                                                                "type": "null"
-                                                            }
-                                                        ]
-                                                    }
-                                                },
-                                                "required": [
-                                                    "value"
-                                                ]
-                                            }
-                                        },
-                                        "description": "Objeto DataGroup: { [grupo]: [{value, score}] }"
-                                    }
-                                },
-                                "required": [
-                                    "data"
-                                ]
+                                "$ref": "#/components/schemas/DataGroupRequestBodyDto"
                             }
                         }
                     }
@@ -712,6 +980,11 @@
                         "description": ""
                     }
                 },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
                 "summary": "Exportar objeto \"data\" (DataGroup) a XLSX",
                 "tags": [
                     "Catalog XLSX"
@@ -741,7 +1014,44 @@
                                     "file": {
                                         "type": "string",
                                         "format": "binary",
-                                        "description": "Archivo XLSX a importar (máximo 300MB)"
+                                        "description": "Archivo XLSX a importar (máximo 300MB). Puede contener opcionalmente columnas de puntaje."
+                                    },
+                                    "existingData": {
+                                        "type": "object",
+                                        "additionalProperties": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "value": {
+                                                        "type": "string"
+                                                    },
+                                                    "score": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "description": "Objeto data existente (opcional). Si se proporciona, fusiona los datos del archivo con los existentes. Formato: {\"Categoria1\": [{\"value\": \"...\", \"score\": \"...\"}], ...}",
+                                        "example": {
+                                            "PROFESIÓN": [
+                                                {
+                                                    "value": "DOCTOR",
+                                                    "score": "100"
+                                                },
+                                                {
+                                                    "value": "ABOGADO",
+                                                    "score": "85"
+                                                }
+                                            ],
+                                            "UBICACIÓN": [
+                                                {
+                                                    "value": "BOGOTA",
+                                                    "score": "95"
+                                                }
+                                            ]
+                                        }
                                     }
                                 },
                                 "required": [
@@ -756,7 +1066,12 @@
                         "description": ""
                     }
                 },
-                "summary": "Importar archivo XLSX y retornar objeto CatalogFileUploadResponseDto con metadata y datos parseados",
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Importar archivo XLSX con o sin columnas de puntaje. Si se envía \"existingData\", fusiona los datos del archivo con los existentes validando headers.",
                 "tags": [
                     "Catalog XLSX"
                 ]
@@ -1335,6 +1650,59 @@
                     "uuidRecord"
                 ]
             },
+            "UpdateCatalogDto": {
+                "type": "object",
+                "properties": {
+                    "context": {
+                        "description": "Contexto del catálogo",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "data": {
+                        "type": "object",
+                        "description": "Valores del catálogo agrupados por categoría dinámicamente",
+                        "example": {
+                            "PROFESIÓN": [
+                                {
+                                    "value": "DOCTOR",
+                                    "score": "100"
+                                }
+                            ],
+                            "UBICACIÓN": [
+                                {
+                                    "value": "BOGOTA",
+                                    "score": "95"
+                                }
+                            ]
+                        }
+                    },
+                    "headers": {
+                        "description": "Headers originales",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CatalogHeaderDto"
+                        }
+                    },
+                    "origin": {
+                        "type": "string",
+                        "description": "Origen del archivo"
+                    },
+                    "permissions": {
+                        "description": "Permisos asignados (puede estar vacío)",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ListPermissionDto"
+                        }
+                    }
+                },
+                "required": [
+                    "data",
+                    "headers",
+                    "origin"
+                ]
+            },
             "ListHomologationFieldDto": {
                 "type": "object",
                 "properties": {
@@ -1491,6 +1859,178 @@
                     "exists"
                 ]
             },
+            "UpdateScoreConfigDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "description": "ID del registro en la base de datos"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Nombre del score"
+                    },
+                    "value": {
+                        "type": "number",
+                        "description": "Valor del score"
+                    },
+                    "logicalOperator": {
+                        "type": "string",
+                        "description": "Operador lógico del score"
+                    },
+                    "matchPercentage": {
+                        "type": "number",
+                        "description": "Porcentaje de coincidencia del score"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "value",
+                    "logicalOperator",
+                    "matchPercentage"
+                ]
+            },
+            "UpdateListPermissionDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "description": "ID del registro en la base de datos"
+                    },
+                    "user_id": {
+                        "type": "number",
+                        "description": "ID del usuario al que pertenece, puede ser null"
+                    },
+                    "role_id": {
+                        "type": "number",
+                        "description": "ID del rol al que pertenece, puede ser null"
+                    }
+                },
+                "required": [
+                    "id",
+                    "user_id",
+                    "role_id"
+                ]
+            },
+            "UpdateListDto": {
+                "type": "object",
+                "properties": {
+                    "origin": {
+                        "type": "string",
+                        "description": "Origen de la lista"
+                    },
+                    "scoreConfigs": {
+                        "description": "Configuración de score (puede estar vacío)",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/UpdateScoreConfigDto"
+                        }
+                    },
+                    "permissions": {
+                        "description": "Permisos de la lista (puede estar vacío)",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/UpdateListPermissionDto"
+                        }
+                    },
+                    "context": {
+                        "type": "array",
+                        "description": "Contexto de la lista",
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "product",
+                                "workflow"
+                            ]
+                        }
+                    }
+                },
+                "required": [
+                    "origin",
+                    "context"
+                ]
+            },
+            "CatalogSummaryDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "description": "ID del catálogo"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Nombre del catálogo"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Descripción del catálogo"
+                    },
+                    "origin": {
+                        "type": "string",
+                        "description": "Origen del catálogo"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Tipo",
+                        "example": "catalog"
+                    },
+                    "tags": {
+                        "description": "Tags asociados",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "product_is": {
+                        "type": "boolean",
+                        "description": "Indica si aplica a producto"
+                    },
+                    "workflow_is": {
+                        "type": "boolean",
+                        "description": "Indica si aplica a workflow"
+                    },
+                    "created_at": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Fecha de creación"
+                    },
+                    "updated_at": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Fecha de actualización"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "origin",
+                    "type",
+                    "tags",
+                    "created_at",
+                    "updated_at"
+                ]
+            },
+            "CatalogsResponseDto": {
+                "type": "object",
+                "properties": {
+                    "total": {
+                        "type": "number",
+                        "description": "Total de catálogos encontrados"
+                    },
+                    "catalogs": {
+                        "description": "Listado de catálogos",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CatalogSummaryDto"
+                        }
+                    }
+                },
+                "required": [
+                    "total",
+                    "catalogs"
+                ]
+            },
             "TagResponseDto": {
                 "type": "object",
                 "properties": {
@@ -1511,6 +2051,51 @@
                 "enum": [
                     "web",
                     "bo"
+                ]
+            },
+            "DataGroupRequestBodyDto": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "description": "Datos agrupados del catálogo por nombre de columna",
+                        "additionalProperties": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "value": {
+                                        "type": "string"
+                                    },
+                                    "score": {
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                }
+                            }
+                        },
+                        "example": {
+                            "PROFESIÓN": [
+                                {
+                                    "value": "DOCTOR",
+                                    "score": "100"
+                                },
+                                {
+                                    "value": "ABOGADO",
+                                    "score": "85"
+                                }
+                            ],
+                            "UBICACIÓN": [
+                                {
+                                    "value": "BOGOTA",
+                                    "score": "95"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "required": [
+                    "data"
                 ]
             },
             "HomologationFieldDto": {
