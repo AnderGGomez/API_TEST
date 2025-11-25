@@ -19,9 +19,7 @@
 				"@bytebase/dbhub",
 				"--transport",
 				"stdio",
-				"--dsn",
-				"postgres://admin_dvp:p4r0N60VqazZ@db-precredit-qa.postgres.database.azure.com:5432/postgres?sslmode=require"
-				//"postgres://admin_dvp:33O=8ymEp0TR@db-precredit-preprod.postgres.database.azure.com:5432/postgres?sslmode=require"
+				"--dsn"
 			]
 		}
 	},
