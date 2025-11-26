@@ -1,6 +1,434 @@
 {
     "openapi": "3.0.0",
     "paths": {
+        "/api/core/v1/list-item/find-by-type": {
+            "post": {
+                "operationId": "ListItemController_findAllByType",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ListTypeDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Listado de tipo de items",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener todos los ListItem para la creacion de una company",
+                "tags": [
+                    "Listado de items generales"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/common/available-module": {
+            "get": {
+                "operationId": "CommonController_findAvailableModule",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listado de modulos disponibles",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener todos Modulos disponibles",
+                "tags": [
+                    "Servicios Generales comunes"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/common/currencies": {
+            "get": {
+                "operationId": "CommonController_getCurrencies",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listado de monedas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener todas las monedas",
+                "tags": [
+                    "Servicios Generales comunes"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/common/currencies/country/{countryId}": {
+            "get": {
+                "operationId": "CommonController_getCurrenciesByCountryId",
+                "parameters": [
+                    {
+                        "name": "countryId",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID del país",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listado de monedas filtradas por país",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener monedas por país",
+                "tags": [
+                    "Servicios Generales comunes"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/common/institution-types": {
+            "get": {
+                "operationId": "CommonController_getInstitutionTypes",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listado de tipos de institución",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener todos los tipos de institución",
+                "tags": [
+                    "Servicios Generales comunes"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/common/modalities": {
+            "get": {
+                "operationId": "CommonController_getModalities",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listado de modalidades",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener todas las modalidades",
+                "tags": [
+                    "Servicios Generales comunes"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/common/tax-regimes": {
+            "get": {
+                "operationId": "CommonController_getTaxRegimes",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listado de regímenes tributarios",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener todos los regímenes tributarios",
+                "tags": [
+                    "Servicios Generales comunes"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/common/tax-regimes/country/{countryId}": {
+            "get": {
+                "operationId": "CommonController_getTaxRegimesByCountryId",
+                "parameters": [
+                    {
+                        "name": "countryId",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID del país",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listado de regímenes tributarios filtrados por país",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener regímenes tributarios por país",
+                "tags": [
+                    "Servicios Generales comunes"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/common/time-zones": {
+            "get": {
+                "operationId": "CommonController_getTimeZones",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listado de zonas horarias",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener todas las zonas horarias",
+                "tags": [
+                    "Servicios Generales comunes"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/common/catalogs": {
+            "get": {
+                "operationId": "CommonController_getCatalogs",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Catálogo combinado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener catálogo combinado",
+                "tags": [
+                    "Servicios Generales comunes"
+                ]
+            }
+        },
         "/api/core/v1/{platform}/parametrizable-data": {
             "get": {
                 "operationId": "ParametrizableDataController_getParametrizableData",
@@ -682,6 +1110,11 @@
                         }
                     }
                 },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
                 "summary": "Consultar permisos por usuario",
                 "tags": [
                     "Usuarios"
@@ -842,120 +1275,6 @@
                 "summary": "Obtener correo electrónico principal activo del usuario",
                 "tags": [
                     "Historial de Correos de Usuario"
-                ]
-            }
-        },
-        "/api/core/v1/{platform}/company/sizes": {
-            "get": {
-                "operationId": "CompanyController_findAllCompanySizes",
-                "parameters": [
-                    {
-                        "name": "platform",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "enum": [
-                                "web",
-                                "bo"
-                            ],
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Lista de tamaños de empresa",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/ResponseDataDto"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "summary": "Obtener todos los tamaños de empresa",
-                "tags": [
-                    "Company"
-                ]
-            }
-        },
-        "/api/core/v1/{platform}/company/industries": {
-            "get": {
-                "operationId": "CompanyController_findAllIndustries",
-                "parameters": [
-                    {
-                        "name": "platform",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "enum": [
-                                "web",
-                                "bo"
-                            ],
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Lista de industrias",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/ResponseDataDto"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "summary": "Obtener todas las industrias",
-                "tags": [
-                    "Company"
-                ]
-            }
-        },
-        "/api/core/v1/{platform}/company/main-usages": {
-            "get": {
-                "operationId": "CompanyController_findAllMainUsages",
-                "parameters": [
-                    {
-                        "name": "platform",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "enum": [
-                                "web",
-                                "bo"
-                            ],
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Lista de usos principales",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/ResponseDataDto"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "summary": "Obtener todos los usos principales",
-                "tags": [
-                    "Company"
                 ]
             }
         },
@@ -1550,6 +1869,171 @@
                 ]
             }
         },
+        "/api/core/v1/{platform}/company/sizes": {
+            "get": {
+                "operationId": "CompanyController_findAllCompanySizes",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de tamaños de empresa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ResponseDataDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Obtener todos los tamaños de empresa",
+                "tags": [
+                    "Company"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company/industries": {
+            "get": {
+                "operationId": "CompanyController_findAllIndustries",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de industrias",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ResponseDataDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Obtener todas las industrias",
+                "tags": [
+                    "Company"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company/main-usages": {
+            "get": {
+                "operationId": "CompanyController_findAllMainUsages",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de usos principales",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ResponseDataDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Obtener todos los usos principales",
+                "tags": [
+                    "Company"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company-bo/{companyId}/generar-codigo": {
+            "post": {
+                "operationId": "CompanyBoController_generarCodigo",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Codigo de usuario generado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Código generado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Generar código único de compañía",
+                "tags": [
+                    "Company BO"
+                ]
+            }
+        },
         "/api/core/v1/{platform}/team": {
             "get": {
                 "operationId": "TeamController_findAll",
@@ -1957,6 +2441,133 @@
                 "summary": "Delete a team (only if it has no assigned users)",
                 "tags": [
                     "Team"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/phones/rules": {
+            "get": {
+                "operationId": "PhoneController_listRules",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PhoneRuleResponseDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Listar reglas de validación de teléfono por país",
+                "tags": [
+                    "Phone"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/phones/rules/{code}": {
+            "get": {
+                "operationId": "PhoneController_getRule",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "required": true,
+                        "in": "path",
+                        "description": "Código país display (+57, +1 809, etc.)",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PhoneRuleResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Obtener reglas para un código país específico",
+                "tags": [
+                    "Phone"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/phones/validate": {
+            "post": {
+                "operationId": "PhoneController_validate",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ValidatePhoneDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidatePhoneResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Validar un número de teléfono contra sus reglas",
+                "tags": [
+                    "Phone"
                 ]
             }
         },
@@ -2378,6 +2989,39 @@
                     }
                 ],
                 "summary": "Revoca todos los tokens de un usuario en Firebase Authentication",
+                "tags": [
+                    "Autenticación"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/auth/logout": {
+            "post": {
+                "operationId": "AuthController_logout",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sesión cerrada correctamente"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Cierra sesión e invalida el token actual",
                 "tags": [
                     "Autenticación"
                 ]
@@ -2876,6 +3520,41 @@
             }
         },
         "schemas": {
+            "ListTypeDto": {
+                "type": "object",
+                "properties": {
+                    "typesCodes": {
+                        "description": "Codigos de listType",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "ApiResponseDto": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "description": "Estado de la respuesta",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "Mensaje de la respuesta",
+                        "example": "Operación exitosa"
+                    },
+                    "data": {
+                        "type": "object",
+                        "description": "Datos de la respuesta"
+                    }
+                },
+                "required": [
+                    "status",
+                    "message"
+                ]
+            },
             "ParametrizableDataResponseDto": {
                 "type": "object",
                 "properties": {
@@ -3119,6 +3798,10 @@
                         "type": "string",
                         "description": "WhatsApp de la empresa"
                     },
+                    "whatsappCountryCode": {
+                        "type": "string",
+                        "description": "Código de país del WhatsApp (ej: +57, +1 809)"
+                    },
                     "main_usage_other": {
                         "type": "string",
                         "description": "Otro uso principal"
@@ -3341,9 +4024,11 @@
                     },
                     "phone": {
                         "type": "string",
-                        "description": "Teléfono, debe incluir extensión de país. Ejemplo: +573001234567",
-                        "minLength": 8,
-                        "maxLength": 16
+                        "description": "Número de teléfono nacional (validación en servicio)"
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "description": "Código país del teléfono (validación en servicio) ej: +57, +1 809"
                     },
                     "email": {
                         "type": "string",
@@ -3366,6 +4051,7 @@
                     "fullName",
                     "identification",
                     "phone",
+                    "countryCode",
                     "email",
                     "roleId"
                 ]
@@ -3591,8 +4277,11 @@
                     },
                     "phone": {
                         "type": "string",
-                        "description": "Teléfono del usuario, debe incluir extensión de país. Ejemplo: +573001234567",
-                        "maxLength": 16
+                        "description": "Número de teléfono nacional (validación en servicio)"
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "description": "Código país del teléfono (validación en servicio)"
                     },
                     "roleId": {
                         "type": "number",
@@ -3842,10 +4531,6 @@
                 ]
             },
             "UserEmailHistory": {
-                "type": "object",
-                "properties": {}
-            },
-            "ResponseDataDto": {
                 "type": "object",
                 "properties": {}
             },
@@ -4419,6 +5104,10 @@
                     "limit"
                 ]
             },
+            "ResponseDataDto": {
+                "type": "object",
+                "properties": {}
+            },
             "TeamResponseDto": {
                 "type": "object",
                 "properties": {
@@ -4663,6 +5352,83 @@
                 "required": [
                     "id",
                     "deleted"
+                ]
+            },
+            "PhoneRuleResponseDto": {
+                "type": "object",
+                "properties": {
+                    "countryName": {
+                        "type": "string"
+                    },
+                    "countryCodeDisplay": {
+                        "type": "string"
+                    },
+                    "dialingCode": {
+                        "type": "string"
+                    },
+                    "minLength": {
+                        "type": "number"
+                    },
+                    "maxLength": {
+                        "type": "number"
+                    },
+                    "isoCode": {
+                        "type": "string"
+                    },
+                    "notes": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "countryName",
+                    "countryCodeDisplay",
+                    "dialingCode",
+                    "minLength",
+                    "maxLength"
+                ]
+            },
+            "ValidatePhoneDto": {
+                "type": "object",
+                "properties": {
+                    "phone": {
+                        "type": "string",
+                        "description": "Número completo ingresado (puede incluir + y código país)"
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "description": "Código país a validar (ej: +57, +1 809)"
+                    }
+                },
+                "required": [
+                    "phone",
+                    "countryCode"
+                ]
+            },
+            "ValidatePhoneResponseDto": {
+                "type": "object",
+                "properties": {
+                    "valid": {
+                        "type": "boolean"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "e164": {
+                        "type": "string"
+                    },
+                    "nationalNumber": {
+                        "type": "string"
+                    },
+                    "dialingCode": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "valid",
+                    "errors"
                 ]
             },
             "CountryResponseDto": {
