@@ -3,13 +3,14 @@
 		"rest-api": {
 			"command": "node",
 			"args": [
-				"C:/Users/USUARIO/AppData/Roaming/npm/node_modules/dkmaker-mcp-rest-api/build/index.js"
+				"/home/andreudev/.local/share/mise/installs/node/22.18.0/lib/node_modules/dkmaker-mcp-rest-api/build/index.js"
 			],
 			"env": {
-				"REST_BASE_URL": "https://qa.back.pre-credit.com/",
+				// "REST_BASE_URL": "https://qa.back.pre-credit.com/",
 				//"REST_BASE_URL":"https://stable.back.pre-credit.com",
+				"REST_BASE_URL": "https://precredit-product-preprod.victorioussea-94dd7927.eastus2.azurecontainerapps.io",
 				"HEADER_Accept": "application/json",
-				"AUTH_BEARER": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjQ1YTZjMGMyYjgwMDcxN2EzNGQ1Y2JiYmYzOWI4NGI2NzYxMjgyNjUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcHJlY3JlZGl0djYtcWEiLCJhdWQiOiJwcmVjcmVkaXR2Ni1xYSIsImF1dGhfdGltZSI6MTc2Mzc0MTIyNCwidXNlcl9pZCI6Im5zNHd5SkpwSlhWRVhqQTc0MTlLR0lqQlg0ejIiLCJzdWIiOiJuczR3eUpKcEpYVkVYakE3NDE5S0dJakJYNHoyIiwiaWF0IjoxNzYzNzQxMjI0LCJleHAiOjE3NjM3NDQ4MjQsImVtYWlsIjoiYWRtaW5pc3RyYWRvci5jb21wYW55LnFhQHlvcG1haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImFkbWluaXN0cmFkb3IuY29tcGFueS5xYUB5b3BtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.o_HWiaiOoAe0oJgdUe477TgPt5PwrbMUQmp0wfFCgYNiRawPQZPE8oUaKN2jScHg-tj68smnYAFs02oVl3uzG89WJ_xY7P0mrXFPvGQbvKmiAe0LWXBW9ykIOzDf9wx94xyhyghLAkLg2tX_8kZ5DoM-Hlfm73-8eY857b40smtZZ69exwSZ5Aq8ymlBbzMy1V-qH2MaYdDGr5xasgfEPO__gtlNTEWwUyjaH2duiDZHE0G-lHaXQHsed22F4-8XFa0jrSKG1cBfuVZjqM0bEWIzMt-o3DTdDwTFVhtICD-sRUlAPSTSzw4YmzOmn2TLLwE95oN0xf85Q-YcfSG1UQ"
+				"AUTH_BEARER": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjdjNzQ5NTFmNjBhMDE0NzE3ZjFlMzA4ZDZiMjgwZjQ4ZjFlODhmZGEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcHJlY3JlZGl0djYtc3RhYmxlIiwiYXVkIjoicHJlY3JlZGl0djYtc3RhYmxlIiwiYXV0aF90aW1lIjoxNzY0MTkxNzQ0LCJ1c2VyX2lkIjoiQ1k4TEpXSzAwZGh6YUtKeU4wVnhqRkFJVGFFMiIsInN1YiI6IkNZOExKV0swMGRoemFLSnlOMFZ4akZBSVRhRTIiLCJpYXQiOjE3NjQxOTE3NDQsImV4cCI6MTc2NDE5NTM0NCwiZW1haWwiOiJ1c3VhcmlvZGVtbzFAeW9wbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidXN1YXJpb2RlbW8xQHlvcG1haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.IpE05cdhXdxY1q56hajYLKRlYAs99JAiHm3IDt1coqUDCKfZgB3v946PNW_B7P9-kZW0w4iZwzEPQBGHXAVxBbPdedqyvXqvbwhOx5PSaX1HBKm6cZMtZyi4fT62p-HxOvBonUufKIBgWz1eBTkrqTbkOy-micn6SLR6g0hwMo4hZIW6xoFyGpj1mPdOaFJLZxOIULuTiapMEtiWWrHIjxoo92xmYBA1alpL4bPdSCuGoK3FojNGGRiAuQSW9jsKnqcUHJXXUn52F1M2STID97fm4sSnuzI1nGUTCM1XO2YN84Hypg87EUjFzxZuZbreFxA8p7bfVRW0Idt_M5cSeQ"
 			},
 			"type": "stdio"
 		},
@@ -21,6 +22,8 @@
 				"--transport",
 				"stdio",
 				"--dsn",
+				// "postgres://admin_dvp:p4r0N60VqazZ@db-precredit-qa.postgres.database.azure.com:5432/postgres?sslmode=require"
+				"postgres://admin_dvp:33O=8ymEp0TR@db-precredit-preprod.postgres.database.azure.com:5432/postgres?sslmode=require"
 			]
 		}
 	},
