@@ -1,6 +1,6 @@
 ---
 agent: agent
-model: Gemini 3 Pro (Preview)
+model: Claude Opus 4.5 (Preview)
 tools: ['edit/createFile', 'edit/createDirectory', 'edit/editFiles']
 description: 'Instrucciones para reportar resultados de pruebas y generar colección Postman'
 ---
@@ -54,7 +54,7 @@ Debes estructurar este archivo estrictamente en este orden:
 
 ### RESTRICCIONES ###
 * El reporte MD debe ser visualmente limpio (usa tablas y emojis).
-* En el archivo Postman, usa variables `{{base_url}}` y `{{token}}` en lugar de valores harcodeados.
+* En el archivo Postman, usa variables `{{baseUrl}}` y `{{bearerToken}}` en lugar de valores harcodeados.
 * No omitas los escenarios fallidos en el reporte; son los más importantes.
 
 ### EJEMPLO DE SALIDA (SECCIONES DEL REPORTE MD) ###
@@ -79,9 +79,49 @@ Debes estructurar este archivo estrictamente en este orden:
 * **✅ [API-GET-01] Validar acceso detalle**
     * *Endpoint:* `GET /list/detail/268`
     * *Resultado:* El servicio respondió 200 OK y la estructura es correcta.
+    * Evidencia HTTP Payload:
+      ```json
+      {
+        "status_code": 200,
+        "response_body": {
+          "id": 268,
+          "score": 40
+        }
+      }
+      ```
+    * Evidencia HTTP Response:
+      ```json
+      {
+        "status_code": 200,
+        "response_body": {
+          "id": 268,
+          "score": 40
+        }
+      }
+      ```
 
 * **❌ [API-PUT-01] Validar persistencia**
     * *Endpoint:* `PUT /list/update-catalog/268`
     * *Error:* Falló la validación en BD. Se esperaba `score: 50`, se encontró `score: 40`.
+    * Evidencia HTTP Payload:
+      ```json
+      {
+        "status_code": 200,
+        "response_body": {
+          "id": 268,
+          "score": 40
+        }
+      }
+      ```
+    * Evidencia HTTP Response:
+      ```json
+      {
+        "status_code": 200,
+        "response_body": {
+          "id": 268,
+          "score": 40
+        }
+      }
+      ```
 ---
 ```

@@ -1,7 +1,7 @@
 ---
 agent: agent
-model: Gemini 3 Pro (Preview)
-tools: ['edit/createFile', 'edit/createDirectory', 'edit/editFiles', 'dbhub-postgres-npx/execute_sql', 'rest-api/*']
+model: Claude Opus 4.5 (Preview)
+tools: ['edit/createFile', 'edit/createDirectory', 'edit/editFiles', 'dbhub-postgres-npx/execute_sql', 'rest-api/*', 'mongodb/aggregate', 'mongodb/collection-indexes', 'mongodb/collection-schema', 'mongodb/collection-storage-size', 'mongodb/count', 'mongodb/db-stats', 'mongodb/explain', 'mongodb/export', 'mongodb/find', 'mongodb/list-collections', 'mongodb/list-databases', 'mongodb/mongodb-logs', 'mongodb/switch-connection']
 description: 'Instrucciones realizar pruebas de API'
 ---
 
@@ -14,9 +14,10 @@ Recibirás escenarios de prueba en formato Gherkin (Given/When/Then). Para saber
 ### HERRAMIENTAS DISPONIBLES (MCP TOOLS) ###
 Utiliza estas herramientas para materializar los pasos de prueba:
 1. `rest-api/*`: Para todas las interacciones HTTP (GET, POST, PUT, DELETE).
-2. `dbhub-postgres-npx/execute_sql`: Para validaciones de integridad de datos (`@Database`).
-3. `edit/createFile`: ÚNICAMENTE para crear archivos dummy temporales si un test de carga (`@Archivo`) lo requiere.
-4. `read_file` / `list_dir`: Para leer la documentación de la API (`precreditList.json`, `precreditCore.json`).
+2. `dbhub-postgres-npx/execute_sql`: Para validaciones de integridad de datos (`@Database`)
+3. `mongodb/*`: Para validaciones en MongoDB (`@MongoDB`).
+4. `edit/createFile`: ÚNICAMENTE para crear archivos dummy temporales si un test de carga (`@Archivo`) lo requiere.
+5. `read_file` / `list_dir`: Para leer la documentación de la API (`precreditList.json`, `precreditCore.json`, `precreditPreFlows.json`, `precreditPayment.json`).
 
 ### OBJETIVO ###
 Analizar los escenarios Gherkin de entrada, buscar la definición técnica correspondiente en los archivos JSON locales, y ejecutar las llamadas a herramientas secuenciales para validar cada paso del escenario.
@@ -24,7 +25,7 @@ Analizar los escenarios Gherkin de entrada, buscar la definición técnica corre
 ### INSTRUCCIONES SECUENCIALES OBLIGATORIAS ###
 
 1. **Carga de Definiciones Técnicas:**
-   * Al iniciar, lee el contenido de `.\resource\precreditList.json` y `.\resource\precreditCore.json`.
+   * Al iniciar, lee el contenido de `.\resource\precreditList.json`, `.\resource\precreditCore.json`, `.\resource\precreditPreFlows.json` y `.\resource\precreditPayment.json`.
    * Usa esta información como tu "diccionario de traducción" para convertir nombres de servicios del Gherkin en endpoints y payloads reales.
 
 2. **Interpretación y Ejecución (Ciclo BDD):**

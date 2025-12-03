@@ -1,0 +1,2946 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/api/preflow/v1/flow-reason-code": {
+            "post": {
+                "operationId": "FlowReasonCodeController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "description": "Data to create the FlowReasonCode",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateFlowReasonCodeRequestDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "FlowReasonCode created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowReasonCode"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    },
+                    "409": {
+                        "description": "FlowReasonCode already exists"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    },
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Create a new FlowReasonCode",
+                "tags": [
+                    "FlowReasonCode"
+                ]
+            },
+            "get": {
+                "operationId": "FlowReasonCodeController_findAll",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by code,title,description",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "onlyVisible",
+                        "required": false,
+                        "in": "query",
+                        "description": "Filter by visibility",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of FlowReasonCodes",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/FlowReasonCode"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    },
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get all FlowReasonCodes",
+                "tags": [
+                    "FlowReasonCode"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow-reason-code/{code}": {
+            "get": {
+                "operationId": "FlowReasonCodeController_findByCode",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "required": true,
+                        "in": "path",
+                        "description": "FlowReasonCode code",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "FlowReasonCode found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowReasonCode"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "FlowReasonCode not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    },
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get FlowReasonCode by code",
+                "tags": [
+                    "FlowReasonCode"
+                ]
+            },
+            "put": {
+                "operationId": "FlowReasonCodeController_updateByCode",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "required": true,
+                        "in": "path",
+                        "description": "FlowReasonCode code",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "description": "Data to update the FlowReasonCode",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateFlowReasonCodeRequestDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "FlowReasonCode updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowReasonCode"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    },
+                    "404": {
+                        "description": "FlowReasonCode not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    },
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Update FlowReasonCode by code",
+                "tags": [
+                    "FlowReasonCode"
+                ]
+            },
+            "delete": {
+                "operationId": "FlowReasonCodeController_deleteByCode",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "required": true,
+                        "in": "path",
+                        "description": "FlowReasonCode code",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "FlowReasonCode deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowReasonCode"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "FlowReasonCode not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    },
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Delete FlowReasonCode by code",
+                "tags": [
+                    "FlowReasonCode"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow-reason-code/{id}/clone": {
+            "post": {
+                "operationId": "FlowReasonCodeController_cloneFunction",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "FlowReasonCode ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "FlowReasonCode cloned successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowReasonCode"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "FlowReasonCode not found or invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    },
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Clone FlowReasonCode by ID",
+                "tags": [
+                    "FlowReasonCode"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow-reason-code/{code}/usage": {
+            "get": {
+                "operationId": "FlowReasonCodeController_findByCodeAndIsUsage",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "required": true,
+                        "in": "path",
+                        "description": "FlowReasonCode code",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "FlowReasonCode found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowReasonCode"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "FlowReasonCode not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    },
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get Flows Usaged by code",
+                "tags": [
+                    "FlowReasonCode"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow": {
+            "post": {
+                "operationId": "FlowController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "description": "Flow creation data",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateFlowRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Flow created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Flow"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Create a new flow",
+                "tags": [
+                    "Flow"
+                ]
+            },
+            "get": {
+                "operationId": "FlowController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "List of flows",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Flow"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get all flows",
+                "tags": [
+                    "Flow"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow/{id}": {
+            "get": {
+                "operationId": "FlowController_findById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Flow found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Flow"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Flow not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get flow by id",
+                "tags": [
+                    "Flow"
+                ]
+            },
+            "put": {
+                "operationId": "FlowController_updateNodes",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "Flow ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateFlowRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Flow nodes updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Flow"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Flow not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Update flow nodes and connections by flow id",
+                "tags": [
+                    "Flow"
+                ]
+            },
+            "delete": {
+                "operationId": "FlowController_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Flow deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Flow"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Flow not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Delete flow by id",
+                "tags": [
+                    "Flow"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow/product/{productId}": {
+            "get": {
+                "operationId": "FlowController_findByProductId",
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of flows",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Flow"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get flows by product id",
+                "tags": [
+                    "Flow"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow-nodes/validate-use": {
+            "get": {
+                "operationId": "FlowNodesController_validateUseTypeNodeInFlows",
+                "parameters": [
+                    {
+                        "name": "nodeId",
+                        "required": true,
+                        "in": "query",
+                        "description": "Node ID to validate",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "nodeType",
+                        "required": true,
+                        "in": "query",
+                        "description": "Node type to validate",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Node usage validation result",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidateUseResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request parameters"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Validate if a node type is used in flows",
+                "tags": [
+                    "Flow Nodes"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow-nodes/filter": {
+            "get": {
+                "operationId": "FlowNodesController_findByTypes",
+                "parameters": [
+                    {
+                        "name": "types",
+                        "required": true,
+                        "in": "query",
+                        "description": "Array of node types to filter",
+                        "schema": {
+                            "example": [
+                                "nodeko",
+                                "policy"
+                            ],
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of flow nodes matching the specified types",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/FlowNode"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request parameters"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get flow nodes by types",
+                "tags": [
+                    "Flow Nodes"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow-field-origin": {
+            "get": {
+                "operationId": "FlowFieldOriginController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "List of FlowFieldOrigins",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/FlowFieldOrigin"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get all FlowFieldOrigins",
+                "tags": [
+                    "FlowFieldOrigin"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow-fields": {
+            "post": {
+                "operationId": "FlowFieldController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FlowField"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "FlowField created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowField"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Create a new FlowField",
+                "tags": [
+                    "FlowFields"
+                ]
+            },
+            "get": {
+                "operationId": "FlowFieldController_findAll",
+                "parameters": [
+                    {
+                        "name": "originFlowId",
+                        "required": false,
+                        "in": "query",
+                        "description": "Origin flow ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "onlyVisible",
+                        "required": false,
+                        "in": "query",
+                        "description": "Show only visible fields",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of FlowFields",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/FlowField"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get all FlowFields",
+                "tags": [
+                    "FlowFields"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow-fields/{id}": {
+            "get": {
+                "operationId": "FlowFieldController_findById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "FlowField found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowField"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "FlowField not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get FlowField by ID",
+                "tags": [
+                    "FlowFields"
+                ]
+            },
+            "put": {
+                "operationId": "FlowFieldController_updateById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FlowField"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "FlowField updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowField"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "FlowField not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Update FlowField by ID",
+                "tags": [
+                    "FlowFields"
+                ]
+            },
+            "delete": {
+                "operationId": "FlowFieldController_deleteById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "FlowField deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowField"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "FlowField not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Delete FlowField by ID",
+                "tags": [
+                    "FlowFields"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow-function": {
+            "post": {
+                "operationId": "FlowFunctionController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "description": "FlowFunction data",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FlowFunctionRequestDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "FlowFunction created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowFunction"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Create a new FlowFunction",
+                "tags": [
+                    "FlowFunction"
+                ]
+            },
+            "get": {
+                "operationId": "FlowFunctionController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "List of FlowFunctions",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/FlowFunction"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get all FlowFunctions",
+                "tags": [
+                    "FlowFunction"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow-function/filter": {
+            "get": {
+                "operationId": "FlowFunctionController_findAllWithFilter",
+                "parameters": [
+                    {
+                        "name": "onlyVisible",
+                        "required": false,
+                        "in": "query",
+                        "description": "Filter only visible functions",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by code,title,description",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of FlowFunctions",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/FlowFunction"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get all FlowFunctions with filter",
+                "tags": [
+                    "FlowFunction"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow-function/{id}": {
+            "get": {
+                "operationId": "FlowFunctionController_findById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "FlowFunction ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "FlowFunction found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowFunction"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "FlowFunction not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get FlowFunction by ID",
+                "tags": [
+                    "FlowFunction"
+                ]
+            },
+            "put": {
+                "operationId": "FlowFunctionController_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "FlowFunction ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "description": "Updated FlowFunction data",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FlowFunctionRequestDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "FlowFunction updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowFunction"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "FlowFunction not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Update FlowFunction by ID",
+                "tags": [
+                    "FlowFunction"
+                ]
+            },
+            "delete": {
+                "operationId": "FlowFunctionController_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "FlowFunction ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "FlowFunction deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiWrapper"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "FlowFunction not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Delete FlowFunction by ID",
+                "tags": [
+                    "FlowFunction"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow-function/{id}/clone": {
+            "post": {
+                "operationId": "FlowFunctionController_cloneFunction",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "FlowFunction ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "FlowFunction cloned successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowFunction"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "FlowFunction not found or invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Clone FlowFunction by ID",
+                "tags": [
+                    "FlowFunction"
+                ]
+            }
+        },
+        "/api/preflow/v1/health": {
+            "get": {
+                "operationId": "HealthController_check",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Service is healthy",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "ok"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Check service health",
+                "tags": [
+                    "Health"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow-constant": {
+            "post": {
+                "operationId": "FlowConstantController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "description": "FlowConstant data",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FlowConstantRequestDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "FlowConstant created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowConstant"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Create a new FlowConstant",
+                "tags": [
+                    "FlowConstant"
+                ]
+            },
+            "get": {
+                "operationId": "FlowConstantController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "List of FlowConstants",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/FlowConstant"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get all FlowConstants",
+                "tags": [
+                    "FlowConstant"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow-constant/filter": {
+            "get": {
+                "operationId": "FlowConstantController_findAllWithFilter",
+                "parameters": [
+                    {
+                        "name": "onlyVisible",
+                        "required": false,
+                        "in": "query",
+                        "description": "Filter only visible constants",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by code,title,description",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of FlowConstants",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/FlowConstant"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get all FlowConstants with filter",
+                "tags": [
+                    "FlowConstant"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow-constant/{id}": {
+            "get": {
+                "operationId": "FlowConstantController_findById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "FlowConstant ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "FlowConstant found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowConstant"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "FlowConstant not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get FlowConstant by ID",
+                "tags": [
+                    "FlowConstant"
+                ]
+            },
+            "put": {
+                "operationId": "FlowConstantController_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "FlowConstant ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "description": "Updated FlowConstant data",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FlowConstantRequestDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "FlowConstant updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowConstant"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "FlowConstant not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Update FlowConstant by ID",
+                "tags": [
+                    "FlowConstant"
+                ]
+            },
+            "delete": {
+                "operationId": "FlowConstantController_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "FlowConstant ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "FlowConstant deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiWrapper"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "FlowConstant not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Delete FlowConstant by ID",
+                "tags": [
+                    "FlowConstant"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow-constant/{id}/clone": {
+            "post": {
+                "operationId": "FlowConstantController_cloneConstant",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "FlowConstant ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "FlowConstant cloned successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowConstant"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "FlowConstant not found or invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Clone FlowConstant by ID",
+                "tags": [
+                    "FlowConstant"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow-scoring": {
+            "post": {
+                "operationId": "FlowScoringController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "description": "FlowScoring data",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FlowScoringRequestDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "FlowScoring created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowScoring"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Create a new FlowScoring",
+                "tags": [
+                    "FlowScoring"
+                ]
+            },
+            "get": {
+                "operationId": "FlowScoringController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "List of FlowScoring",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/FlowScoring"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get all FlowScoring",
+                "tags": [
+                    "FlowScoring"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow-scoring/filter": {
+            "get": {
+                "operationId": "FlowScoringController_findAllWithFilter",
+                "parameters": [
+                    {
+                        "name": "onlyVisible",
+                        "required": false,
+                        "in": "query",
+                        "description": "Show only visible fields",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "required": false,
+                        "in": "query",
+                        "description": "Search by code,title,description",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of FlowScoring",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/FlowScoring"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get all FlowScoring with filter",
+                "tags": [
+                    "FlowScoring"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow-scoring/{id}": {
+            "get": {
+                "operationId": "FlowScoringController_findById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "FlowScoring ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "FlowScoring found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowScoring"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "FlowScoring not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get FlowScoring by ID",
+                "tags": [
+                    "FlowScoring"
+                ]
+            },
+            "put": {
+                "operationId": "FlowScoringController_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "FlowScoring ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "description": "Updated FlowScoring data",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FlowScoringRequestDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "FlowScoring updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowScoring"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "FlowScoring not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Update FlowScoring by ID",
+                "tags": [
+                    "FlowScoring"
+                ]
+            },
+            "delete": {
+                "operationId": "FlowScoringController_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "FlowScoring ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "FlowScoring deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiWrapper"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "FlowScoring not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Delete FlowScoring by ID",
+                "tags": [
+                    "FlowScoring"
+                ]
+            }
+        },
+        "/api/preflow/v1/flow-scoring/{id}/clone": {
+            "post": {
+                "operationId": "FlowScoringController_cloneFunction",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "FlowScoring ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "FlowScoring cloned successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FlowScoring"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "FlowScoring invalid input"
+                    },
+                    "404": {
+                        "description": "FlowScoring not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Clone FlowScoring by ID",
+                "tags": [
+                    "FlowScoring"
+                ]
+            }
+        }
+    },
+    "info": {
+        "title": "Precredit Prequalification Flow API",
+        "description": "Swagger configuration module.",
+        "version": "1.0",
+        "contact": {}
+    },
+    "tags": [],
+    "servers": [],
+    "components": {
+        "securitySchemes": {
+            "bearer": {
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+                "type": "http"
+            }
+        },
+        "schemas": {
+            "CreateFlowReasonCodeRequestDto": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string",
+                        "description": "Unique code for the flow reason",
+                        "example": "REASON_001"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "Title of the flow reason",
+                        "example": "Missing Documents"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Optional description of the flow reason",
+                        "example": "The user did not provide all required documents."
+                    },
+                    "visible": {
+                        "type": "boolean",
+                        "example": true,
+                        "description": "Is visible?"
+                    }
+                },
+                "required": [
+                    "code",
+                    "title",
+                    "visible"
+                ]
+            },
+            "FlowReasonCode": {
+                "type": "object",
+                "properties": {
+                    "companyId": {
+                        "type": "string",
+                        "example": "company123",
+                        "description": "Company identifier"
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Unique code for the flow reason",
+                        "example": "REASON_001"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "Title of the flow reason",
+                        "example": "Rejected by Credit Policy"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Detailed description of the flow reason",
+                        "example": "The application was rejected due to not meeting the minimum credit score."
+                    },
+                    "visible": {
+                        "type": "boolean",
+                        "example": true,
+                        "description": "Is visible?"
+                    },
+                    "isUsed": {
+                        "type": "boolean",
+                        "example": false,
+                        "description": "Is Reason Code used?"
+                    },
+                    "createdAt": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Creation date"
+                    },
+                    "updatedAt": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Update date"
+                    },
+                    "createdBy": {
+                        "type": "string",
+                        "example": "userId123",
+                        "description": "User who created the record"
+                    },
+                    "updatedBy": {
+                        "type": "string",
+                        "example": "userId456",
+                        "description": "User who updated the record"
+                    }
+                },
+                "required": [
+                    "companyId",
+                    "code",
+                    "title",
+                    "description",
+                    "visible",
+                    "isUsed",
+                    "createdAt",
+                    "updatedAt",
+                    "createdBy",
+                    "updatedBy"
+                ]
+            },
+            "UpdateFlowReasonCodeRequestDto": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string",
+                        "description": "Unique code for the flow reason",
+                        "example": "REASON_001"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "Title of the flow reason",
+                        "example": "Missing Documents"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Optional description of the flow reason",
+                        "example": "The user did not provide all required documents."
+                    },
+                    "visible": {
+                        "type": "boolean",
+                        "example": true,
+                        "description": "Is visible?"
+                    }
+                },
+                "required": [
+                    "code",
+                    "title",
+                    "visible"
+                ]
+            },
+            "CreateFlowRequest": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Flow name",
+                        "example": "Credit Pre-qualification Flow"
+                    },
+                    "productId": {
+                        "type": "string",
+                        "description": "Product identifier",
+                        "example": "123e4567-e89b-12d3-a456-426614174001"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "Flow status",
+                        "example": "active"
+                    },
+                    "callBureauAtStart": {
+                        "type": "boolean",
+                        "description": "Whether to call bureau at start",
+                        "example": true
+                    },
+                    "nodes": {
+                        "type": "array",
+                        "description": "Flow nodes configuration",
+                        "example": [
+                            {
+                                "id": "node1",
+                                "type": "decision",
+                                "config": {}
+                            }
+                        ]
+                    },
+                    "connections": {
+                        "type": "array",
+                        "description": "Flow connections between nodes",
+                        "example": [
+                            {
+                                "from": "node1",
+                                "to": "node2",
+                                "condition": "approved"
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "name",
+                    "productId",
+                    "status",
+                    "callBureauAtStart",
+                    "nodes",
+                    "connections"
+                ]
+            },
+            "Connection": {
+                "type": "object",
+                "properties": {
+                    "to": {
+                        "type": "string",
+                        "description": "Flow reference ID to"
+                    },
+                    "from": {
+                        "type": "string",
+                        "description": "Flow reference ID from"
+                    },
+                    "condition": {
+                        "type": "string",
+                        "description": "Condition"
+                    }
+                },
+                "required": [
+                    "to",
+                    "from",
+                    "condition"
+                ]
+            },
+            "Flow": {
+                "type": "object",
+                "properties": {
+                    "companyId": {
+                        "type": "string",
+                        "example": "company123",
+                        "description": "Company identifier"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Main Flow",
+                        "description": "Flow name"
+                    },
+                    "productId": {
+                        "type": "string",
+                        "example": "product123",
+                        "description": "Product reference"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "active",
+                        "description": "Flow status"
+                    },
+                    "callBureauAtStart": {
+                        "type": "boolean",
+                        "example": true,
+                        "description": "Call bureau at start"
+                    },
+                    "nodes": {
+                        "description": "Node references",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "connections": {
+                        "description": "Connections between nodes",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Connection"
+                        }
+                    },
+                    "createdAt": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Creation date"
+                    },
+                    "updatedAt": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Update date"
+                    },
+                    "createdBy": {
+                        "type": "string",
+                        "example": "userId123",
+                        "description": "User who created the record"
+                    },
+                    "updatedBy": {
+                        "type": "string",
+                        "example": "userId456",
+                        "description": "User who updated the record"
+                    }
+                },
+                "required": [
+                    "companyId",
+                    "name",
+                    "productId",
+                    "status",
+                    "callBureauAtStart",
+                    "nodes",
+                    "connections",
+                    "createdAt",
+                    "updatedAt",
+                    "createdBy",
+                    "updatedBy"
+                ]
+            },
+            "ValidateUseResponse": {
+                "type": "object",
+                "properties": {
+                    "isUsed": {
+                        "type": "boolean",
+                        "example": true,
+                        "description": "Indicates if the scoring is used in any flow functions"
+                    },
+                    "flowsNode": {
+                        "example": [],
+                        "description": "List of flow nodes where the scoring is used",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "required": [
+                    "isUsed",
+                    "flowsNode"
+                ]
+            },
+            "Position": {
+                "type": "object",
+                "properties": {
+                    "x": {
+                        "type": "number",
+                        "example": 499.86,
+                        "description": "X coordinate"
+                    },
+                    "y": {
+                        "type": "number",
+                        "example": 3.01,
+                        "description": "Y coordinate"
+                    }
+                },
+                "required": [
+                    "x",
+                    "y"
+                ]
+            },
+            "FlowNode": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "e1f34a64-e184-4d7f-a89e-626c79cf71d3",
+                        "description": "Node unique identifier"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Prueba nodo ko",
+                        "description": "Node name"
+                    },
+                    "position": {
+                        "description": "Node position in canvas",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Position"
+                            }
+                        ]
+                    },
+                    "companyId": {
+                        "type": "string",
+                        "description": "Company reference"
+                    },
+                    "flowId": {
+                        "type": "string",
+                        "description": "Flow reference"
+                    },
+                    "createdAt": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Creation date"
+                    },
+                    "updatedAt": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Update date"
+                    },
+                    "createdBy": {
+                        "type": "string",
+                        "example": "userId123",
+                        "description": "User who created the record"
+                    },
+                    "updatedBy": {
+                        "type": "string",
+                        "example": "userId456",
+                        "description": "User who updated the record"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "position",
+                    "companyId",
+                    "flowId",
+                    "createdAt",
+                    "updatedAt",
+                    "createdBy",
+                    "updatedBy"
+                ]
+            },
+            "FlowFieldOrigin": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Field name",
+                        "example": "email"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Data type",
+                        "example": "string"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Optional description",
+                        "example": "User email address"
+                    },
+                    "createdAt": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Creation date"
+                    },
+                    "updatedAt": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Update date"
+                    },
+                    "createdBy": {
+                        "type": "string",
+                        "example": "userId123",
+                        "description": "User who created the record"
+                    },
+                    "updatedBy": {
+                        "type": "string",
+                        "example": "userId456",
+                        "description": "User who updated the record"
+                    }
+                },
+                "required": [
+                    "name",
+                    "type",
+                    "createdAt",
+                    "updatedAt",
+                    "createdBy",
+                    "updatedBy"
+                ]
+            },
+            "ObjectId": {
+                "type": "object",
+                "properties": {}
+            },
+            "Option": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "type": "string",
+                        "description": "Option value",
+                        "example": "option1"
+                    },
+                    "label": {
+                        "type": "string",
+                        "description": "Option label",
+                        "example": "Option 1"
+                    },
+                    "score": {
+                        "type": "number",
+                        "description": "Option score",
+                        "example": 10
+                    }
+                },
+                "required": [
+                    "value",
+                    "label"
+                ]
+            },
+            "FlowField": {
+                "type": "object",
+                "properties": {
+                    "companyId": {
+                        "type": "string",
+                        "example": "company123",
+                        "description": "Company identifier"
+                    },
+                    "originFlowId": {
+                        "description": "Flow Origin ID (only used for custom origin fields)",
+                        "example": "flow123",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ObjectId"
+                            }
+                        ]
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Field name (original)",
+                        "example": "email"
+                    },
+                    "homologatedName": {
+                        "type": "string",
+                        "description": "Homologated field name",
+                        "example": "correo_electronico"
+                    },
+                    "label": {
+                        "type": "string",
+                        "description": "Field label",
+                        "example": "Email Address"
+                    },
+                    "dataType": {
+                        "type": "string",
+                        "enum": [
+                            "text",
+                            "number",
+                            "date",
+                            "list",
+                            "catalog",
+                            "aml_list",
+                            "custom",
+                            "formula",
+                            "score_catalog"
+                        ],
+                        "description": "Data type",
+                        "example": "text"
+                    },
+                    "options": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Option"
+                        }
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Is required",
+                        "example": false
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "Value"
+                    },
+                    "minValue": {
+                        "type": "number",
+                        "description": "Minimum value",
+                        "example": 0
+                    },
+                    "maxValue": {
+                        "type": "number",
+                        "description": "Maximum value",
+                        "example": 100
+                    },
+                    "placeholder": {
+                        "type": "string",
+                        "description": "Placeholder"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Description"
+                    },
+                    "order": {
+                        "type": "number",
+                        "description": "Order",
+                        "example": 1
+                    },
+                    "defaultValue": {
+                        "type": "string",
+                        "description": "Default value"
+                    },
+                    "visible": {
+                        "type": "boolean",
+                        "description": "Visible in the form",
+                        "example": true
+                    },
+                    "createdAt": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Creation date"
+                    },
+                    "updatedAt": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Update date"
+                    },
+                    "createdBy": {
+                        "type": "string",
+                        "example": "userId123",
+                        "description": "User who created the record"
+                    },
+                    "updatedBy": {
+                        "type": "string",
+                        "example": "userId456",
+                        "description": "User who updated the record"
+                    }
+                },
+                "required": [
+                    "originFlowId",
+                    "name",
+                    "label",
+                    "dataType",
+                    "createdAt",
+                    "updatedAt",
+                    "createdBy",
+                    "updatedBy"
+                ]
+            },
+            "ApiWrapper": {
+                "type": "object",
+                "properties": {}
+            },
+            "FlowFunction": {
+                "type": "object",
+                "properties": {
+                    "companyId": {
+                        "type": "string",
+                        "example": "company123",
+                        "description": "Company identifier"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Sum",
+                        "description": "Function name"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Function that adds two values",
+                        "description": "Function description"
+                    },
+                    "formula": {
+                        "type": "string",
+                        "example": "a + b",
+                        "description": "Function formula"
+                    },
+                    "visible": {
+                        "type": "boolean",
+                        "example": true,
+                        "description": "Is Function visible?"
+                    },
+                    "isUsed": {
+                        "type": "boolean",
+                        "example": false,
+                        "description": "Is Function used?"
+                    },
+                    "createdAt": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Creation date"
+                    },
+                    "updatedAt": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Update date"
+                    },
+                    "createdBy": {
+                        "type": "string",
+                        "example": "userId123",
+                        "description": "User who created the record"
+                    },
+                    "updatedBy": {
+                        "type": "string",
+                        "example": "userId456",
+                        "description": "User who updated the record"
+                    }
+                },
+                "required": [
+                    "companyId",
+                    "name",
+                    "description",
+                    "formula",
+                    "visible",
+                    "isUsed",
+                    "createdAt",
+                    "updatedAt",
+                    "createdBy",
+                    "updatedBy"
+                ]
+            },
+            "FlowFunctionRequestDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Sum",
+                        "description": "Function name"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Function that adds two values",
+                        "description": "Function description"
+                    },
+                    "formula": {
+                        "type": "string",
+                        "example": "a + b",
+                        "description": "Function formula"
+                    },
+                    "visible": {
+                        "type": "boolean",
+                        "example": true,
+                        "description": "Is Function visible?",
+                        "default": true
+                    }
+                },
+                "required": [
+                    "name",
+                    "formula"
+                ]
+            },
+            "FlowConstant": {
+                "type": "object",
+                "properties": {
+                    "companyId": {
+                        "type": "string",
+                        "example": "company123",
+                        "description": "Company identifier"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Document Name",
+                        "description": "Constant name"
+                    },
+                    "value": {
+                        "type": "object",
+                        "example": "12345",
+                        "description": "Constant value (can be string, number, or boolean)"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "string",
+                        "description": "Constant type"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "This constant is used for document codes",
+                        "description": "Constant description"
+                    },
+                    "visible": {
+                        "type": "boolean",
+                        "example": true,
+                        "description": "Is Constant visible?"
+                    },
+                    "isUsed": {
+                        "type": "boolean",
+                        "example": false,
+                        "description": "Is Constant used?"
+                    }
+                },
+                "required": [
+                    "companyId",
+                    "name",
+                    "value",
+                    "type",
+                    "visible",
+                    "isUsed"
+                ]
+            },
+            "FlowConstantRequestDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Document Name",
+                        "description": "Constant name"
+                    },
+                    "value": {
+                        "example": "12345",
+                        "description": "Constant value (must match the type specified in the type field)",
+                        "oneOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "boolean"
+                            }
+                        ]
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "string",
+                        "description": "Constant type (must be: string, number, or boolean)",
+                        "enum": [
+                            "string",
+                            "number",
+                            "boolean"
+                        ]
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "This constant is used for document codes",
+                        "description": "Constant description"
+                    },
+                    "visible": {
+                        "type": "boolean",
+                        "example": true,
+                        "description": "Is Constant visible?",
+                        "default": true
+                    }
+                },
+                "required": [
+                    "name",
+                    "value",
+                    "type",
+                    "visible"
+                ]
+            },
+            "ValidationCondition": {
+                "type": "object",
+                "properties": {
+                    "operator": {
+                        "type": "string",
+                        "example": ">",
+                        "description": "Operator for validation"
+                    },
+                    "expectedValue": {
+                        "type": "number",
+                        "example": 50,
+                        "description": "Expected value for validation"
+                    },
+                    "action": {
+                        "type": "string",
+                        "example": "accept",
+                        "description": "Action to take if condition matches"
+                    },
+                    "score": {
+                        "type": "number",
+                        "example": 10,
+                        "description": "Score assigned if condition matches"
+                    },
+                    "weight": {
+                        "type": "number",
+                        "example": 0.5,
+                        "description": "Weight of the condition"
+                    },
+                    "reasonCode": {
+                        "type": "string",
+                        "example": "RC001",
+                        "description": "Reason code for the condition"
+                    }
+                },
+                "required": [
+                    "operator",
+                    "expectedValue",
+                    "action",
+                    "score",
+                    "weight",
+                    "reasonCode"
+                ]
+            },
+            "Rule": {
+                "type": "object",
+                "properties": {
+                    "origin": {
+                        "type": "string",
+                        "example": "formula",
+                        "description": "Origin type (e.g., formula, manual)"
+                    },
+                    "field": {
+                        "type": "string",
+                        "example": "campo1",
+                        "description": "Field to validate"
+                    },
+                    "formula": {
+                        "type": "string",
+                        "example": "SUM(field1, field2)",
+                        "description": "Formula if origin is formula"
+                    },
+                    "conditions": {
+                        "description": "Validation conditions",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationCondition"
+                        }
+                    }
+                },
+                "required": [
+                    "origin",
+                    "field",
+                    "formula",
+                    "conditions"
+                ]
+            },
+            "GlobalScoring": {
+                "type": "object",
+                "properties": {
+                    "operator": {
+                        "type": "string",
+                        "example": ">=",
+                        "description": "Operator for global scoring"
+                    },
+                    "score": {
+                        "type": "number",
+                        "example": 70,
+                        "description": "Score threshold for global scoring"
+                    },
+                    "action": {
+                        "type": "string",
+                        "example": "approve",
+                        "description": "Action for global scoring"
+                    },
+                    "reasonCode": {
+                        "type": "string",
+                        "example": "RC_GLOBAL",
+                        "description": "Reason code for global scoring"
+                    }
+                },
+                "required": [
+                    "operator",
+                    "score",
+                    "action",
+                    "reasonCode"
+                ]
+            },
+            "FlowScoring": {
+                "type": "object",
+                "properties": {
+                    "companyId": {
+                        "type": "string",
+                        "example": "company123",
+                        "description": "Company identifier"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Sum",
+                        "description": "Scoring name"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Scoring that adds two values",
+                        "description": "Scoring description"
+                    },
+                    "mode": {
+                        "type": "string",
+                        "example": "Ponderado",
+                        "description": "Scoring mode",
+                        "enum": [
+                            "Ponderado",
+                            "No Ponderado"
+                        ]
+                    },
+                    "maxScore": {
+                        "type": "number",
+                        "example": 100,
+                        "description": "Maximum score"
+                    },
+                    "visible": {
+                        "type": "boolean",
+                        "example": true,
+                        "description": "Visibility status"
+                    },
+                    "isUsed": {
+                        "type": "boolean",
+                        "example": false,
+                        "description": "Is Scoring used?"
+                    },
+                    "rules": {
+                        "description": "List of rules for scoring",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Rule"
+                        }
+                    },
+                    "globalScoring": {
+                        "description": "Global scoring configuration",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GlobalScoring"
+                            }
+                        ]
+                    },
+                    "createdAt": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Creation date"
+                    },
+                    "updatedAt": {
+                        "format": "date-time",
+                        "type": "string",
+                        "description": "Update date"
+                    },
+                    "createdBy": {
+                        "type": "string",
+                        "example": "userId123",
+                        "description": "User who created the record"
+                    },
+                    "updatedBy": {
+                        "type": "string",
+                        "example": "userId456",
+                        "description": "User who updated the record"
+                    }
+                },
+                "required": [
+                    "companyId",
+                    "name",
+                    "description",
+                    "mode",
+                    "maxScore",
+                    "visible",
+                    "isUsed",
+                    "rules",
+                    "globalScoring",
+                    "createdAt",
+                    "updatedAt",
+                    "createdBy",
+                    "updatedBy"
+                ]
+            },
+            "ValidationConditionDto": {
+                "type": "object",
+                "properties": {
+                    "operator": {
+                        "type": "string",
+                        "example": ">",
+                        "description": "Operator for validation"
+                    },
+                    "expectedValue": {
+                        "type": "number",
+                        "example": 50,
+                        "description": "Expected value for validation"
+                    },
+                    "action": {
+                        "type": "string",
+                        "example": "accept",
+                        "description": "Action to take if condition matches"
+                    },
+                    "score": {
+                        "type": "number",
+                        "example": 10,
+                        "description": "Score assigned if condition matches"
+                    },
+                    "weight": {
+                        "type": "number",
+                        "example": 0.5,
+                        "description": "Weight of the condition"
+                    },
+                    "reasonCode": {
+                        "type": "string",
+                        "example": "RC001",
+                        "description": "Reason code for the condition"
+                    }
+                },
+                "required": [
+                    "operator",
+                    "expectedValue",
+                    "action",
+                    "score"
+                ]
+            },
+            "RuleDto": {
+                "type": "object",
+                "properties": {
+                    "origin": {
+                        "type": "string",
+                        "example": "formula",
+                        "description": "Origin type (e.g., formula, manual)"
+                    },
+                    "field": {
+                        "type": "string",
+                        "example": "campo1",
+                        "description": "Field to validate"
+                    },
+                    "formula": {
+                        "type": "string",
+                        "example": "SUM(field1, field2)",
+                        "description": "Formula if origin is formula"
+                    },
+                    "conditions": {
+                        "description": "Validation conditions",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationConditionDto"
+                        }
+                    }
+                },
+                "required": [
+                    "origin",
+                    "field",
+                    "conditions"
+                ]
+            },
+            "GlobalScoringDto": {
+                "type": "object",
+                "properties": {
+                    "operator": {
+                        "type": "string",
+                        "example": ">=",
+                        "description": "Operator for global scoring"
+                    },
+                    "score": {
+                        "type": "number",
+                        "example": 70,
+                        "description": "Score threshold for global scoring"
+                    },
+                    "action": {
+                        "type": "string",
+                        "example": "approve",
+                        "description": "Action for global scoring"
+                    },
+                    "reasonCode": {
+                        "type": "string",
+                        "example": "RC_GLOBAL",
+                        "description": "Reason code for global scoring"
+                    }
+                },
+                "required": [
+                    "operator",
+                    "score",
+                    "action"
+                ]
+            },
+            "FlowScoringRequestDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Sum",
+                        "description": "Scoring name"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Scoring that adds two values",
+                        "description": "Scoring description"
+                    },
+                    "mode": {
+                        "type": "string",
+                        "example": "Ponderado",
+                        "description": "Scoring mode",
+                        "enum": [
+                            "Ponderado",
+                            "No Ponderado"
+                        ]
+                    },
+                    "maxScore": {
+                        "type": "number",
+                        "example": 100,
+                        "description": "Maximum score"
+                    },
+                    "visible": {
+                        "type": "boolean",
+                        "example": true,
+                        "description": "Visibility status"
+                    },
+                    "rules": {
+                        "description": "List of rules for scoring",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/RuleDto"
+                        }
+                    },
+                    "globalScoring": {
+                        "description": "Global scoring configuration",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GlobalScoringDto"
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "name",
+                    "mode",
+                    "rules",
+                    "globalScoring"
+                ]
+            }
+        }
+    }
+}

@@ -3,7 +3,7 @@
 ## Project Context
 This workspace is a specialized BDD (Behavior Driven Development) environment for API testing. It operates in two distinct modes based on the user's intent: **Execution** or **Documentation**.
 
-- **Source of Truth**: API definitions are located in `resource/precreditCore.json` and `resource/precreditList.json`.
+- **Source of Truth**: API definitions are located in `resource/precreditCore.json`, `resource/precreditList.json`, `resource/precreditPreFlows.json` and `resource/precreditPayment.json`.
 - **Behavior Definitions**: The agent's behavior is strictly governed by prompts in `.github/prompts/`.
 
 ## Operational Modes
@@ -40,7 +40,7 @@ This workspace is a specialized BDD (Behavior Driven Development) environment fo
 
 ### Analysis Phase (Required for both modes)
 Before acting, always:
-1.  Read `resource/precreditCore.json` and `resource/precreditList.json`.
+1.  Read `resource/precreditCore.json`, `resource/precreditList.json`, `resource/precreditPreFlows.json` and `resource/precreditPayment.json`.
 2.  Map the user's Gherkin terms (e.g., "Service X") to the actual endpoints/methods in the JSON files.
 
 ### Database Interaction
