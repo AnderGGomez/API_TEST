@@ -318,6 +318,39 @@
                 ]
             }
         },
+        "/api/payment/v1/public/payment-methods/has-card/{secToken}": {
+            "get": {
+                "operationId": "PublicPaymentMethodController_hasCard",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "query",
+                        "description": "Company ID to check",
+                        "schema": {
+                            "example": 33,
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "secToken",
+                        "required": true,
+                        "in": "path",
+                        "description": "Fixed security token in URL",
+                        "schema": {}
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{ hasCard: boolean }"
+                    }
+                },
+                "summary": "Check if company has any payment method (public endpoint with fixed token)",
+                "tags": [
+                    "public-payment-methods"
+                ]
+            }
+        },
         "/api/payment/v1/payments": {
             "post": {
                 "operationId": "PaymentController_create",

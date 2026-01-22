@@ -267,12 +267,12 @@
                 ]
             }
         },
-        "/api/list/v1/{platform}/list/{id}": {
+        "/api/list/v1/{platform}/list/{listId}": {
             "delete": {
                 "operationId": "ListController_deleteList",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "listId",
                         "required": true,
                         "in": "path",
                         "schema": {
@@ -415,7 +415,7 @@
                 ]
             }
         },
-        "/api/list/v1/{platform}/list/update-catalog/{id}": {
+        "/api/list/v1/{platform}/list/update-catalog/{listId}": {
             "put": {
                 "operationId": "ListController_updateCatalog",
                 "parameters": [
@@ -432,7 +432,7 @@
                         }
                     },
                     {
-                        "name": "id",
+                        "name": "listId",
                         "required": true,
                         "in": "path",
                         "description": "ID del catálogo a actualizar (debe ser un número entero positivo)",
@@ -532,7 +532,7 @@
                 ]
             }
         },
-        "/api/list/v1/{platform}/list/{id}/exists": {
+        "/api/list/v1/{platform}/list/{listId}/exists": {
             "get": {
                 "operationId": "ListController_listExists",
                 "parameters": [
@@ -549,7 +549,7 @@
                         }
                     },
                     {
-                        "name": "id",
+                        "name": "listId",
                         "required": true,
                         "in": "path",
                         "schema": {
@@ -580,7 +580,7 @@
                 ]
             }
         },
-        "/api/list/v1/{platform}/list/detail/{id}": {
+        "/api/list/v1/{platform}/list/detail/{listId}": {
             "get": {
                 "operationId": "ListController_getListDetails",
                 "parameters": [
@@ -597,7 +597,7 @@
                         }
                     },
                     {
-                        "name": "id",
+                        "name": "listId",
                         "required": true,
                         "in": "path",
                         "schema": {
@@ -1635,10 +1635,6 @@
                         "items": {
                             "$ref": "#/components/schemas/ListPermissionDto"
                         }
-                    },
-                    "uuidRecord": {
-                        "type": "string",
-                        "description": "UUID del proceso o batch"
                     }
                 },
                 "required": [
@@ -1646,8 +1642,7 @@
                     "data",
                     "headers",
                     "origin",
-                    "permissions",
-                    "uuidRecord"
+                    "permissions"
                 ]
             },
             "UpdateCatalogDto": {

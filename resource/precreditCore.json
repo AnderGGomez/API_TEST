@@ -429,6 +429,126 @@
                 ]
             }
         },
+        "/api/core/v1/{platform}/common/economic-activities": {
+            "get": {
+                "operationId": "CommonController_getEconomicActivities",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listado de actividades económicas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener listado de actividades económicas",
+                "tags": [
+                    "Servicios Generales comunes"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/common/captcha/attempts": {
+            "get": {
+                "operationId": "CommonController_getCaptchaAttempts",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listado de intentos de captcha",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Obtener intentos de resolución de captcha almacenados",
+                "tags": [
+                    "Servicios Generales comunes"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/common/captcha/attempt": {
+            "post": {
+                "operationId": "CommonController_logCaptchaAttempt",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CaptchaAuditDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Intento de captcha registrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Registra un intento de resolución de captcha",
+                "tags": [
+                    "Servicios Generales comunes"
+                ]
+            }
+        },
         "/api/core/v1/{platform}/parametrizable-data": {
             "get": {
                 "operationId": "ParametrizableDataController_getParametrizableData",
@@ -687,7 +807,7 @@
                     {
                         "name": "email",
                         "required": true,
-                        "in": "path",
+                        "in": "query",
                         "description": "Correo electrónico del usuario",
                         "schema": {
                             "type": "string"
@@ -718,6 +838,11 @@
                         }
                     }
                 },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
                 "summary": "Buscar usuario por correo electrónico",
                 "tags": [
                     "Usuarios"
@@ -1113,9 +1238,6 @@
                 "security": [
                     {
                         "bearer": []
-                    },
-                    {
-                        "bearer": []
                     }
                 ],
                 "summary": "Consultar permisos por usuario",
@@ -1170,6 +1292,116 @@
                 "summary": "Consultar usuario por ID",
                 "tags": [
                     "Usuarios"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/user-management/{userId}/status": {
+            "put": {
+                "description": "Permite cambiar el estado de un usuario entre ACTIVE e INACTIVE. Al inactivar, se cierran todas las sesiones activas.",
+                "operationId": "UserManagementController_updateUserStatus",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID del usuario",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateUserStatusDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Estado del usuario actualizado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateUserStatusResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Activar o inactivar usuario (con cierre de sesiones)",
+                "tags": [
+                    "Gestión de Usuarios (Backoffice)"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/user-management/{userId}/reset-password": {
+            "post": {
+                "description": "Genera un token de recuperación y envía un correo electrónico al usuario con el enlace para crear una nueva contraseña.",
+                "operationId": "UserManagementController_resetUserPassword",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID del usuario",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Correo de recuperación enviado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResetPasswordResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Restablecer contraseña de usuario",
+                "tags": [
+                    "Gestión de Usuarios (Backoffice)"
                 ]
             }
         },
@@ -1327,6 +1559,177 @@
                 "summary": "Obtener correo electrónico principal activo del usuario",
                 "tags": [
                     "Historial de Correos de Usuario"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/tenant/user-management/list": {
+            "post": {
+                "description": "BackOffice: requiere companyId en el body. Web: usa companyId del token.",
+                "operationId": "UserManagementTenantController_listUsersByTenant",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserListTenantDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Listado paginado de usuarios del tenant",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserListResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Listar usuarios del tenant con filtros",
+                "tags": [
+                    "Gestión de Usuarios por Tenant"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/tenant/user-management/{userId}/status": {
+            "put": {
+                "description": "Cambia estado del usuario. Al inactivar cierra sesiones. Al activar desde INACTIVE cambia a PENDING y envía correo de activación. BackOffice: debe enviar companyId en el body.",
+                "operationId": "UserManagementTenantController_updateUserStatus",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID del usuario",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateUserStatusTenantDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Estado actualizado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateUserStatusResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Activar/Inactivar usuario del tenant",
+                "tags": [
+                    "Gestión de Usuarios por Tenant"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/tenant/user-management/{userId}/reset-password": {
+            "post": {
+                "description": "Genera token de recuperación y envía email al usuario. BackOffice: debe enviar companyId en el body para validar permisos.",
+                "operationId": "UserManagementTenantController_resetUserPassword",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID del usuario",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResetPasswordTenantDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Correo de recuperación enviado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResetPasswordResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Restablecer contraseña de usuario del tenant",
+                "tags": [
+                    "Gestión de Usuarios por Tenant"
                 ]
             }
         },
@@ -1784,7 +2187,55 @@
                         }
                     }
                 },
-                "summary": "Obtener todos los módulos disponibles",
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener módulos disponibles (reglas por compañía si aplica)",
+                "tags": [
+                    "Role"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/role/modules-bo": {
+            "get": {
+                "operationId": "RoleController_getModulesWithStatus",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de módulos con estado activo",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ModuleWithStatusDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener módulos con estado de activación por compañía",
                 "tags": [
                     "Role"
                 ]
@@ -1810,6 +2261,7 @@
                         "name": "id",
                         "required": true,
                         "in": "path",
+                        "description": "ID del evento de auditoría",
                         "schema": {
                             "type": "number"
                         }
@@ -1817,7 +2269,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Obtiene un evento de auditoría específico por ID",
+                        "description": "Obtiene un evento de auditoría específico por ID (filtrado por compañía del usuario)",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1825,8 +2277,16 @@
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "description": "Usuario o compañía no encontrada"
                     }
                 },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
                 "summary": "Obtener un evento de auditoría específico por ID",
                 "tags": [
                     "Role"
@@ -1853,6 +2313,7 @@
                         "name": "id",
                         "required": true,
                         "in": "path",
+                        "description": "ID del rol",
                         "schema": {
                             "type": "number"
                         }
@@ -1860,16 +2321,27 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Obtiene el historial de auditoría del rol",
+                        "description": "Obtiene el historial de auditoría del rol (filtrado por compañía del usuario)",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/RoleAuditEventDto"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/RoleAuditEventDto"
+                                    }
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "description": "Usuario o compañía no encontrada"
                     }
                 },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
                 "summary": "Obtener historial de auditoría de un rol por ID",
                 "tags": [
                     "Role"
@@ -1905,7 +2377,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Listado paginado de eventos de auditoría de roles",
+                        "description": "Listado paginado de eventos de auditoría de roles (filtrado por compañía del usuario)",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1913,8 +2385,16 @@
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "description": "Usuario o compañía no encontrada"
                     }
                 },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
                 "summary": "Listado de historial de eventos de roles paginado, con buscador y ordenamiento",
                 "tags": [
                     "Role"
@@ -1970,6 +2450,334 @@
                 "summary": "Consultar el detalle de un rol por su ID",
                 "tags": [
                     "Role"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/module-actions": {
+            "get": {
+                "operationId": "ModuleActionController_findAll",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ModuleActionResponseDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener todas las acciones personalizadas",
+                "tags": [
+                    "Module Actions"
+                ]
+            },
+            "post": {
+                "operationId": "ModuleActionController_create",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateModuleActionDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ModuleActionResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Crear nueva acción para un módulo",
+                "tags": [
+                    "Module Actions"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/module-actions/by-module/{moduleId}": {
+            "get": {
+                "operationId": "ModuleActionController_findByModule",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "moduleId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ModuleActionResponseDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener acciones por módulo",
+                "tags": [
+                    "Module Actions"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/module-actions/modules-with-actions": {
+            "get": {
+                "operationId": "ModuleActionController_getModulesWithActions",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ModuleWithActionsDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener módulos con sus acciones disponibles",
+                "tags": [
+                    "Module Actions"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/module-actions/{id}": {
+            "get": {
+                "operationId": "ModuleActionController_findById",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ModuleActionResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener acción por ID",
+                "tags": [
+                    "Module Actions"
+                ]
+            },
+            "put": {
+                "operationId": "ModuleActionController_update",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateModuleActionDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ModuleActionResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Actualizar acción",
+                "tags": [
+                    "Module Actions"
+                ]
+            },
+            "delete": {
+                "operationId": "ModuleActionController_deactivate",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Desactivar acción",
+                "tags": [
+                    "Module Actions"
                 ]
             }
         },
@@ -2087,6 +2895,309 @@
                 ]
             }
         },
+        "/api/core/v1/{platform}/company/list": {
+            "post": {
+                "operationId": "CompanyController_listCompanies",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CompanyListDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Listado paginado de compañías",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CompanyListResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Listado de compañías con paginación, búsqueda, filtro por estado y ordenamiento",
+                "tags": [
+                    "Company"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company/{companyId}/plan-features": {
+            "get": {
+                "operationId": "CompanyDetailConfigController_getPlanFeatures",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID de la compañía",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de características del plan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PlanFeatureDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Obtener características del plan por companyId",
+                "tags": [
+                    "Company"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company/{companyId}/plan": {
+            "patch": {
+                "operationId": "CompanyDetailConfigController_updateCompanyPlan",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID de la compañía",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PlanChangeDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Plan actualizado correctamente"
+                    }
+                },
+                "summary": "Actualizar plan de la compañía (actualiza plan_id)",
+                "tags": [
+                    "Company"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company-bo/save-basic-date": {
+            "post": {
+                "operationId": "CompanyBoController_saveBasicDate",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CompanyBoStepOneDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Datos Basicos Guardados Con Exito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Guardar datos basicos de compañia",
+                "tags": [
+                    "Company BO"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company-bo/{companyId}/save-administrator-date": {
+            "post": {
+                "operationId": "CompanyBoController_saveAdministratorDate",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/CompanyBoStepTwoDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Datos de administradores Guardados Con Exito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Guardar datos de administradores de compañia",
+                "tags": [
+                    "Company BO"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company-bo/save-available-module": {
+            "post": {
+                "operationId": "CompanyBoController_saveAvailableModule",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/CreateCompanyAvailableModuleDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Datos de administradores Guardados Con Exito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Guardar configuracion de modulos disponibles",
+                "tags": [
+                    "Company BO"
+                ]
+            }
+        },
         "/api/core/v1/{platform}/company-bo/{companyId}/generar-codigo": {
             "post": {
                 "operationId": "CompanyBoController_generarCodigo",
@@ -2122,9 +3233,6 @@
                                 }
                             }
                         }
-                    },
-                    "201": {
-                        "description": "Código generado"
                     }
                 },
                 "security": [
@@ -2132,9 +3240,987 @@
                         "bearer": []
                     }
                 ],
-                "summary": "Generar código único de compañía",
+                "summary": "Generar codigo unico para compañia (Cliente)",
                 "tags": [
                     "Company BO"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company-bo/{companyId}/default-lists": {
+            "get": {
+                "operationId": "CompanyBoController_listDefaultLists",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listado de listas configuradas por defecto para la compañía",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Listar listas por defecto de la compañía",
+                "tags": [
+                    "Company BO"
+                ]
+            },
+            "post": {
+                "operationId": "CompanyBoController_createDefaultList",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateDefaultListDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Lista por defecto creada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Crear lista por defecto de la compañía",
+                "tags": [
+                    "Company BO"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company-bo/{companyId}/default-lists/{id}": {
+            "delete": {
+                "operationId": "CompanyBoController_deleteDefaultList",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista por defecto eliminada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Eliminar lista por defecto",
+                "tags": [
+                    "Company BO"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company-bo/{companyId}/default-buros": {
+            "get": {
+                "operationId": "CompanyBoController_listDefaultBuros",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listado de büros configurados por defecto para la compañía",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Listar büros por defecto de la compañía",
+                "tags": [
+                    "Company BO"
+                ]
+            },
+            "post": {
+                "operationId": "CompanyBoController_createDefaultBuro",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateDefaultBurosDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Büro por defecto creado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Crear büro por defecto de la compañía",
+                "tags": [
+                    "Company BO"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company-bo/{companyId}/bureaus": {
+            "get": {
+                "operationId": "CompanyBoController_listBureaus",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listado de buros configurados para la compañía",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Listar buros de la compañía",
+                "tags": [
+                    "Company BO"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company-bo/{companyId}/default-buros/{id}": {
+            "delete": {
+                "operationId": "CompanyBoController_deleteDefaultBuro",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Büro por defecto eliminado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Eliminar büro por defecto",
+                "tags": [
+                    "Company BO"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company-bo/{companyId}/resources": {
+            "post": {
+                "operationId": "CompanyBoController_saveCompanyResources",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CompanyResourceDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Recursos de compañía actualizados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Guardar recursos de la compañía (consults, connections, notifications, storage)",
+                "tags": [
+                    "Company BO"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company-bo/{companyId}/subscription": {
+            "post": {
+                "operationId": "CompanyBoController_saveCompanySubscription",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CompanySubscriptionDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Suscripción de compañía guardada correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Guardar suscripción de la compañía",
+                "tags": [
+                    "Company BO"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company-bo/{companyId}/all-data": {
+            "get": {
+                "operationId": "CompanyBoController_getCompanyAllData",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Datos completos de la compañía",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener datos completos de la compañía",
+                "tags": [
+                    "Company BO"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company-bo/{companyId}/activate": {
+            "post": {
+                "operationId": "CompanyBoController_activateCompany",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Compañía activada correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Activar compañía",
+                "tags": [
+                    "Company BO"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company-bo/{companyId}/deactivate": {
+            "post": {
+                "operationId": "CompanyBoController_deactivateCompany",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DeactivateCompanyDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Compañía desactivada correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Desactivar compañía",
+                "tags": [
+                    "Company BO"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company-bo/{companyId}/subscription/confirm": {
+            "post": {
+                "operationId": "CompanyBoController_confirmSubscription",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Suscripción confirmada. La cuenta se encuentra activa.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Confirmar suscripción (transferencia bancaria)",
+                "tags": [
+                    "Company BO"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company-bo/payment/activate": {
+            "post": {
+                "operationId": "CompanyBoController_activateAfterPayment",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PaymentSuccessDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Compañía activada exitosamente después de agregar tarjeta de pago",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Activar compañía después de pago exitoso (llamada desde usuario con tarjeta agregada)",
+                "tags": [
+                    "Company BO"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company-bo/modules-limits": {
+            "get": {
+                "operationId": "CompanyBoController_getCompanyModulesLimits",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Módulos con límites obtenidos exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CompanyModulesLimitsResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener todos los módulos con sus límites (cantidad, ilimitado) de la compañía del usuario autenticado",
+                "tags": [
+                    "Company BO"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company-bo/{companyId}/lists": {
+            "get": {
+                "operationId": "CompanyBoController_listCompanyLists",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listas AML de la compañía"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener listas AML configuradas para la compañía",
+                "tags": [
+                    "Company BO"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company/default-lists/allowed": {
+            "get": {
+                "operationId": "CompanyListsController_getAllowedDefaultLists",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "IDs de listas permitidas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "listIds": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "IDs de listas globales permitidas para la compañía del usuario",
+                "tags": [
+                    "Company Lists"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company/consumption/{companyId}": {
+            "get": {
+                "operationId": "ConsumptionController_getCompanyConsumption",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "description": "Plataforma (web o bo)",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID de la company",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Consumo obtenido exitosamente"
+                    }
+                },
+                "summary": "Obtener consumo de una company",
+                "tags": [
+                    "Company Consumption"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company/consumption/{companyId}/types": {
+            "get": {
+                "operationId": "ConsumptionController_getCompanyConsumptionTypes",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "description": "Plataforma (web o bo)",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID de la company",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tipos de consumption obtenidos exitosamente"
+                    }
+                },
+                "summary": "Obtener tipos de consumption de una company",
+                "tags": [
+                    "Company Consumption"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/company/summary/{companyId}": {
+            "get": {
+                "operationId": "CompanySummaryController_getCompanySummary",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "description": "Platform (web or bo)",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "description": "Company ID",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Company summary obtained successfully"
+                    }
+                },
+                "summary": "Get company summary information including plan, usage, and logs",
+                "tags": [
+                    "Company Summary"
                 ]
             }
         },
@@ -2881,6 +4967,98 @@
                 ]
             }
         },
+        "/api/core/v1/{platform}/country/{countryId}/departments": {
+            "get": {
+                "operationId": "CountryController_findDepartmentsByCountry",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "countryId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de departamentos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Department"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Obtener departamentos por país",
+                "tags": [
+                    "Country"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/country/departments/{departmentId}/cities": {
+            "get": {
+                "operationId": "CountryController_findCitiesByDepartment",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "departmentId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de ciudades",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/City"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Obtener ciudades por departamento",
+                "tags": [
+                    "Country"
+                ]
+            }
+        },
         "/api/core/v1/{platform}/auth/login": {
             "post": {
                 "operationId": "AuthController_login",
@@ -3303,6 +5481,46 @@
                 ]
             }
         },
+        "/api/core/v1/{platform}/plans/overview-with-features": {
+            "get": {
+                "operationId": "PlanController_getPlansWithFeaturesOverview",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Overview de planes con características",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlansWithFeaturesOverviewDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Overview de planes con características completas de la tabla plan_features",
+                "tags": [
+                    "Plans"
+                ]
+            }
+        },
         "/api/core/v1/{platform}/plans/change-plan": {
             "post": {
                 "operationId": "PlanController_changePlan",
@@ -3388,6 +5606,58 @@
                     }
                 ],
                 "summary": "Obtener el plan de la empresa",
+                "tags": [
+                    "Plans"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/plans/{id}": {
+            "get": {
+                "operationId": "PlanController_getPlanById",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID del plan",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Plan encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlanDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Plan no encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Obtener un plan por ID",
                 "tags": [
                     "Plans"
                 ]
@@ -3645,6 +5915,130 @@
                     "Histórico de uso"
                 ]
             }
+        },
+        "/api/core/v1/{platform}/account-control/check-and-block": {
+            "post": {
+                "operationId": "AccountControlController_checkAndBlock",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Resultado del proceso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CheckBlocksResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Verifica compañías y bloquea automáticamente según criterios",
+                "tags": [
+                    "Account Control"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/account-control/unblock": {
+            "post": {
+                "operationId": "AccountControlController_manualUnblock",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ManualUnblockDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Desbloqueo manual de compañía",
+                "tags": [
+                    "Account Control"
+                ]
+            }
+        },
+        "/api/core/v1/{platform}/account-control/{companyId}/status": {
+            "get": {
+                "operationId": "AccountControlController_getStatus",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "platform",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "enum": [
+                                "web",
+                                "bo"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Consulta estado de bloqueo de compañía",
+                "tags": [
+                    "Account Control"
+                ]
+            }
         }
     },
     "info": {
@@ -3697,6 +6091,57 @@
                 "required": [
                     "status",
                     "message"
+                ]
+            },
+            "CaptchaAuditDto": {
+                "type": "object",
+                "properties": {
+                    "productId": {
+                        "type": "string",
+                        "description": "Identificador del producto",
+                        "example": "precredit-core"
+                    },
+                    "origin": {
+                        "type": "string",
+                        "description": "Origen del captcha",
+                        "enum": [
+                            "public_url",
+                            "embedded_script"
+                        ],
+                        "example": "public_url"
+                    },
+                    "captchaStatus": {
+                        "type": "string",
+                        "description": "Resultado del captcha",
+                        "enum": [
+                            "success",
+                            "failed",
+                            "expired"
+                        ],
+                        "example": "success"
+                    },
+                    "token": {
+                        "type": "string",
+                        "description": "Token devuelto por reCAPTCHA en el frontend (grecaptcha.enterprise.execute)",
+                        "example": "token-generado-por-recaptcha"
+                    },
+                    "expectedAction": {
+                        "type": "string",
+                        "description": "Acción esperada configurada en reCAPTCHA (expectedAction)",
+                        "example": "LOGIN"
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "description": "Marca de tiempo del intento (opcional, si no se envía se usa la del servidor)",
+                        "example": "2026-01-13T15:30:00.000Z"
+                    }
+                },
+                "required": [
+                    "productId",
+                    "origin",
+                    "captchaStatus",
+                    "token",
+                    "expectedAction"
                 ]
             },
             "ParametrizableDataResponseDto": {
@@ -3921,7 +6366,7 @@
                         "type": "string",
                         "description": "Fecha de actualización del usuario"
                     },
-                    "updated_by": {
+                    "updated_by_user": {
                         "type": "number",
                         "description": "Usuario que actualizó"
                     }
@@ -4020,6 +6465,9 @@
                     "module": {
                         "type": "string"
                     },
+                    "moduleCode": {
+                        "type": "string"
+                    },
                     "can_view": {
                         "type": "boolean"
                     },
@@ -4032,6 +6480,14 @@
                     "can_delete": {
                         "type": "boolean"
                     },
+                    "custom_actions": {
+                        "type": "object",
+                        "description": "Acciones personalizadas del módulo",
+                        "example": {
+                            "callBuros": true,
+                            "export": false
+                        }
+                    },
                     "created_at": {
                         "type": "string"
                     },
@@ -4042,10 +6498,12 @@
                 "required": [
                     "id",
                     "module",
+                    "moduleCode",
                     "can_view",
                     "can_create",
                     "can_edit",
                     "can_delete",
+                    "custom_actions",
                     "created_at",
                     "updated_at"
                 ]
@@ -4211,6 +6669,11 @@
                         "items": {
                             "type": "number"
                         }
+                    },
+                    "companyId": {
+                        "type": "number",
+                        "description": "ID de la compañía (opcional, solo para BackOffice)",
+                        "example": 1
                     }
                 },
                 "required": [
@@ -4439,7 +6902,7 @@
                     "email": {
                         "type": "string",
                         "description": "Correo electrónico del usuario",
-                        "maxLength": 100
+                        "maxLength": 255
                     },
                     "phone": {
                         "type": "string",
@@ -4603,6 +7066,72 @@
                     "updatedAt"
                 ]
             },
+            "UpdateUserStatusDto": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "description": "Nuevo estado del usuario",
+                        "enum": [
+                            "Activo",
+                            "Pendiente",
+                            "Inactivo",
+                            "Eliminado"
+                        ],
+                        "example": "Activo"
+                    },
+                    "reason": {
+                        "type": "string",
+                        "description": "Razón del cambio de estado (opcional)",
+                        "example": "Suspensión temporal por solicitud del administrador"
+                    }
+                },
+                "required": [
+                    "status"
+                ]
+            },
+            "UpdateUserStatusResponseDto": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "El usuario fue inactivado de manera exitosa"
+                    },
+                    "data": {
+                        "type": "object"
+                    }
+                },
+                "required": [
+                    "status",
+                    "message",
+                    "data"
+                ]
+            },
+            "ResetPasswordResponseDto": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Se ha enviado un correo electrónico para restablecer la contraseña"
+                    },
+                    "data": {
+                        "type": "object"
+                    }
+                },
+                "required": [
+                    "status",
+                    "message",
+                    "data"
+                ]
+            },
             "UserAuditQueryDto": {
                 "type": "object",
                 "properties": {
@@ -4699,6 +7228,101 @@
             "UserEmailHistory": {
                 "type": "object",
                 "properties": {}
+            },
+            "UserListTenantDto": {
+                "type": "object",
+                "properties": {
+                    "page": {
+                        "type": "number",
+                        "description": "Número de página",
+                        "default": 1
+                    },
+                    "limit": {
+                        "type": "number",
+                        "description": "Cantidad de registros por página",
+                        "default": 10
+                    },
+                    "search": {
+                        "type": "string",
+                        "description": "Texto de búsqueda"
+                    },
+                    "role": {
+                        "type": "number",
+                        "description": "Filtrar por rol"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "Filtrar por estado"
+                    },
+                    "orderBy": {
+                        "description": "Campos para ordenar (puede ser un string o array de strings)",
+                        "default": [
+                            "created_at"
+                        ],
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "orderDirection": {
+                        "type": "array",
+                        "description": "Dirección de ordenamiento para cada campo",
+                        "default": [
+                            "DESC"
+                        ],
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
+                        }
+                    },
+                    "companyId": {
+                        "type": "number",
+                        "description": "ID de la compañía (requerido para BackOffice)",
+                        "example": 1
+                    }
+                }
+            },
+            "UpdateUserStatusTenantDto": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "description": "Nuevo estado del usuario",
+                        "enum": [
+                            "Activo",
+                            "Pendiente",
+                            "Inactivo",
+                            "Eliminado"
+                        ],
+                        "example": "Activo"
+                    },
+                    "reason": {
+                        "type": "string",
+                        "description": "Razón del cambio de estado (opcional)",
+                        "example": "Suspensión temporal por solicitud del administrador"
+                    },
+                    "companyId": {
+                        "type": "number",
+                        "description": "ID de la compañía (requerido para BackOffice)",
+                        "example": 1
+                    }
+                },
+                "required": [
+                    "status"
+                ]
+            },
+            "ResetPasswordTenantDto": {
+                "type": "object",
+                "properties": {
+                    "companyId": {
+                        "type": "number",
+                        "description": "ID de la compañía (requerido para BackOffice)",
+                        "example": 1
+                    }
+                }
             },
             "Role": {
                 "type": "object",
@@ -4799,6 +7423,14 @@
                     "can_delete": {
                         "type": "boolean",
                         "description": "Permiso para eliminar"
+                    },
+                    "custom_actions": {
+                        "type": "object",
+                        "description": "Acciones personalizadas del módulo",
+                        "example": {
+                            "callBuros": true,
+                            "export": false
+                        }
                     }
                 },
                 "required": [
@@ -4878,6 +7510,14 @@
                     "can_delete": {
                         "type": "boolean",
                         "description": "Permiso para eliminar"
+                    },
+                    "custom_actions": {
+                        "type": "object",
+                        "description": "Acciones personalizadas del módulo",
+                        "example": {
+                            "callBuros": true,
+                            "export": false
+                        }
                     }
                 },
                 "required": [
@@ -5032,6 +7672,60 @@
             "Modules": {
                 "type": "object",
                 "properties": {}
+            },
+            "ModuleTypeDto": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "P_OneToOne",
+                            "P_Masive",
+                            "L_precredit",
+                            "L_personalize",
+                            "C_precredit",
+                            "C_personalize"
+                        ]
+                    },
+                    "label": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "type",
+                    "label"
+                ]
+            },
+            "ModuleWithStatusDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "icon": {
+                        "type": "string"
+                    },
+                    "moduleTypes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ModuleTypeDto"
+                        }
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "code"
+                ]
             },
             "UserInfoDto": {
                 "type": "object",
@@ -5270,9 +7964,1003 @@
                     "limit"
                 ]
             },
+            "ModuleActionResponseDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "action_key": {
+                        "type": "string"
+                    },
+                    "action_name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "is_active": {
+                        "type": "boolean"
+                    },
+                    "module_id": {
+                        "type": "number"
+                    },
+                    "module_name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "action_key",
+                    "action_name",
+                    "is_active",
+                    "module_id",
+                    "module_name"
+                ]
+            },
+            "ModuleWithActionsDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "standard_actions": {
+                        "example": [
+                            "view",
+                            "create",
+                            "edit",
+                            "delete"
+                        ],
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "custom_actions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ModuleActionResponseDto"
+                        }
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "standard_actions",
+                    "custom_actions"
+                ]
+            },
+            "CreateModuleActionDto": {
+                "type": "object",
+                "properties": {
+                    "moduleId": {
+                        "type": "number",
+                        "description": "ID del módulo"
+                    },
+                    "action_key": {
+                        "type": "string",
+                        "description": "Clave única de la acción",
+                        "example": "callBuros"
+                    },
+                    "action_name": {
+                        "type": "string",
+                        "description": "Nombre para mostrar",
+                        "example": "Consultar Burós"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Descripción de la acción"
+                    }
+                },
+                "required": [
+                    "moduleId",
+                    "action_key",
+                    "action_name"
+                ]
+            },
+            "UpdateModuleActionDto": {
+                "type": "object",
+                "properties": {
+                    "action_name": {
+                        "type": "string",
+                        "description": "Nombre para mostrar"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Descripción de la acción"
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "description": "Estado activo"
+                    }
+                }
+            },
             "ResponseDataDto": {
                 "type": "object",
                 "properties": {}
+            },
+            "CompanyListDto": {
+                "type": "object",
+                "properties": {
+                    "page": {
+                        "type": "number",
+                        "description": "Número de página",
+                        "default": 1
+                    },
+                    "limit": {
+                        "type": "number",
+                        "description": "Cantidad de registros por página",
+                        "default": 10
+                    },
+                    "search": {
+                        "type": "string",
+                        "description": "Texto de búsqueda por nombre o NIT/DPI"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "Filtrar por estado de compañía"
+                    },
+                    "orderBy": {
+                        "description": "Campos para ordenar (puede ser un string o array de strings)",
+                        "default": [
+                            "created_at"
+                        ],
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "orderDirection": {
+                        "type": "array",
+                        "description": "Dirección de ordenamiento para cada campo",
+                        "default": [
+                            "DESC"
+                        ],
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
+                        }
+                    }
+                }
+            },
+            "CompanyListItemResponseDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "nitOrDpi": {
+                        "type": "string"
+                    },
+                    "isActive": {
+                        "type": "boolean"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "nextBillingDate": {
+                        "type": "object"
+                    },
+                    "paymentMethod": {
+                        "type": "object"
+                    },
+                    "createdAt": {
+                        "format": "date-time",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "nitOrDpi",
+                    "isActive",
+                    "status",
+                    "createdAt"
+                ]
+            },
+            "CompanyListResponseDto": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CompanyListItemResponseDto"
+                        }
+                    },
+                    "total": {
+                        "type": "number"
+                    },
+                    "page": {
+                        "type": "number"
+                    },
+                    "limit": {
+                        "type": "number"
+                    },
+                    "totalPages": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "items",
+                    "total",
+                    "page",
+                    "limit",
+                    "totalPages"
+                ]
+            },
+            "PlanFeatureDto": {
+                "type": "object",
+                "properties": {
+                    "feature_key": {
+                        "type": "string",
+                        "description": "Clave de la característica",
+                        "example": "requests"
+                    },
+                    "feature_name": {
+                        "type": "string",
+                        "description": "Nombre de la característica",
+                        "example": "Solicitudes (llamados al motor)"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Descripción detallada",
+                        "example": "Cantidad de precalificaciones o evaluaciones de flujos incluidas por mes."
+                    },
+                    "display_order": {
+                        "type": "number",
+                        "description": "Orden de visualización",
+                        "example": 1
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "Valor para este plan",
+                        "example": "1 – 60"
+                    }
+                },
+                "required": [
+                    "feature_key",
+                    "feature_name",
+                    "description",
+                    "display_order",
+                    "value"
+                ]
+            },
+            "PlanChangeDto": {
+                "type": "object",
+                "properties": {
+                    "planId": {
+                        "type": "number",
+                        "description": "ID del nuevo plan",
+                        "example": 2
+                    }
+                },
+                "required": [
+                    "planId"
+                ]
+            },
+            "AdministratorUserDto": {
+                "type": "object",
+                "properties": {
+                    "fullName": {
+                        "type": "string",
+                        "description": "Nombre completo del usuario administrador"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Correo electrónico del usuario administrador"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "description": "Número de identificación del usuario administrador"
+                    },
+                    "phoneCountryCode": {
+                        "type": "string",
+                        "description": "Código de país para teléfono (ej: +502)",
+                        "example": "+502"
+                    }
+                },
+                "required": [
+                    "fullName",
+                    "email",
+                    "phone",
+                    "phoneCountryCode"
+                ]
+            },
+            "CompanyBoStepOneDto": {
+                "type": "object",
+                "properties": {
+                    "companyId": {
+                        "type": "number",
+                        "description": "ID de la compañía (opcional para actualizar)"
+                    },
+                    "institutionTypeId": {
+                        "type": "number",
+                        "description": "ID del tipo de institución"
+                    },
+                    "countryId": {
+                        "type": "number",
+                        "description": "ID del país"
+                    },
+                    "currencyId": {
+                        "type": "number",
+                        "description": "ID de la moneda"
+                    },
+                    "timeZoneId": {
+                        "type": "number",
+                        "description": "ID de la zona horaria"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Nombre de la compañía"
+                    },
+                    "socialRazon": {
+                        "type": "string",
+                        "description": "Razón social de la compañía"
+                    },
+                    "ComercialName": {
+                        "type": "string",
+                        "description": "Nombre comercial de la compañía"
+                    },
+                    "nitDpi": {
+                        "type": "string",
+                        "description": "NIT/DPI de la compañía"
+                    },
+                    "webSite": {
+                        "type": "string",
+                        "description": "Sitio web de la compañía"
+                    },
+                    "administratorUser": {
+                        "description": "Usuario administrador de la compañía",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/AdministratorUserDto"
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "institutionTypeId",
+                    "countryId",
+                    "currencyId",
+                    "timeZoneId",
+                    "name",
+                    "socialRazon",
+                    "nitDpi",
+                    "administratorUser"
+                ]
+            },
+            "CompanyBoStepTwoDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "description": "ID del usuario (opcional, solo para actualizar)"
+                    },
+                    "fullName": {
+                        "type": "string",
+                        "description": "Nombre completo del usuario administrador"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Correo electrónico del usuario administrador"
+                    },
+                    "identificationNumber": {
+                        "type": "string",
+                        "description": "Número de identificación del usuario administrador"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "description": "Número de teléfono del usuario administrador"
+                    },
+                    "phoneCountryCode": {
+                        "type": "string",
+                        "description": "Código de país para teléfono (ej: +502)",
+                        "example": "+502"
+                    }
+                },
+                "required": [
+                    "fullName",
+                    "email",
+                    "identificationNumber",
+                    "phone",
+                    "phoneCountryCode"
+                ]
+            },
+            "ChildModuleConfigDto": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string",
+                        "description": "Código del módulo hijo",
+                        "example": "SUBMODULE_CODE"
+                    },
+                    "ilimit": {
+                        "type": "boolean",
+                        "description": "Define si el módulo hijo es ilimitado",
+                        "example": false
+                    },
+                    "count": {
+                        "type": "number",
+                        "description": "Cantidad para el módulo hijo",
+                        "example": 3
+                    }
+                },
+                "required": [
+                    "code",
+                    "ilimit"
+                ]
+            },
+            "CreateCompanyAvailableModuleDto": {
+                "type": "object",
+                "properties": {
+                    "companyId": {
+                        "type": "number",
+                        "description": "ID de la compañía",
+                        "example": 1
+                    },
+                    "moduleCode": {
+                        "type": "string",
+                        "description": "Código del módulo disponible",
+                        "example": "PRODUCTS"
+                    },
+                    "ilimit": {
+                        "type": "boolean",
+                        "description": "Define si el módulo es ilimitado",
+                        "example": false
+                    },
+                    "count": {
+                        "type": "number",
+                        "description": "Cantidad",
+                        "example": 3
+                    },
+                    "type": {
+                        "type": "array",
+                        "description": "Tipos asignados",
+                        "example": [
+                            "C_personalize",
+                            "P_OneToOne"
+                        ],
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "P_OneToOne",
+                                "P_Masive",
+                                "L_precredit",
+                                "L_personalize",
+                                "C_precredit",
+                                "C_personalize"
+                            ]
+                        }
+                    },
+                    "childrenConfig": {
+                        "description": "Configuraciones específicas para módulos hijos (opcional)",
+                        "example": [
+                            {
+                                "code": "CHILD_MODULE_1",
+                                "ilimit": false,
+                                "count": 5
+                            },
+                            {
+                                "code": "CHILD_MODULE_2",
+                                "ilimit": true
+                            }
+                        ],
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ChildModuleConfigDto"
+                        }
+                    }
+                },
+                "required": [
+                    "companyId",
+                    "moduleCode",
+                    "ilimit",
+                    "count"
+                ]
+            },
+            "CreateDefaultListDto": {
+                "type": "object",
+                "properties": {
+                    "listId": {
+                        "type": "number",
+                        "description": "ID de la lista (externa)",
+                        "example": 123
+                    },
+                    "modality": {
+                        "type": "string",
+                        "description": "Modalidad de consumo",
+                        "enum": [
+                            "A demanda",
+                            "Paquete",
+                            "Ilimitado"
+                        ]
+                    },
+                    "unitCost": {
+                        "type": "string",
+                        "description": "Costo unitario por consulta"
+                    },
+                    "costPerUse": {
+                        "type": "string",
+                        "description": "Costo por uso"
+                    },
+                    "includedQuantity": {
+                        "type": "number",
+                        "description": "Cantidad incluida en paquete"
+                    },
+                    "overuseQuantity": {
+                        "type": "number",
+                        "description": "Cantidad de overusage permitida"
+                    }
+                },
+                "required": [
+                    "listId"
+                ]
+            },
+            "CreateDefaultBurosDto": {
+                "type": "object",
+                "properties": {
+                    "buroId": {
+                        "type": "number",
+                        "description": "ID del buro (externo)",
+                        "example": 42
+                    },
+                    "source": {
+                        "type": "array",
+                        "description": "Fuentes permitidas",
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "Precredit",
+                                "Extern"
+                            ]
+                        }
+                    }
+                },
+                "required": [
+                    "buroId",
+                    "source"
+                ]
+            },
+            "CompanyConsultDto": {
+                "type": "object",
+                "properties": {
+                    "modality": {
+                        "type": "string",
+                        "enum": [
+                            "A demanda",
+                            "Paquete",
+                            "Ilimitado"
+                        ]
+                    },
+                    "includedQuantity": {
+                        "type": "number",
+                        "description": "Cantidad incluida (si aplica)"
+                    },
+                    "overuseQuantity": {
+                        "type": "number",
+                        "description": "Cantidad de sobreuso (si aplica)"
+                    },
+                    "unitCost": {
+                        "type": "string",
+                        "description": "Costo unitario (decimal con 2 decimales)",
+                        "example": "100.00"
+                    },
+                    "costPerUse": {
+                        "type": "string",
+                        "description": "Costo por uso (decimal con 2 decimales)",
+                        "example": "25.00"
+                    }
+                },
+                "required": [
+                    "modality",
+                    "unitCost",
+                    "costPerUse"
+                ]
+            },
+            "CompanyDefaultBuroDto": {
+                "type": "object",
+                "properties": {
+                    "buroId": {
+                        "type": "number",
+                        "description": "ID del buro",
+                        "example": 42
+                    },
+                    "modality": {
+                        "type": "string",
+                        "enum": [
+                            "A demanda",
+                            "Paquete",
+                            "Ilimitado"
+                        ]
+                    },
+                    "includedQuantity": {
+                        "type": "number",
+                        "description": "Cantidad incluida (Paquete)"
+                    },
+                    "overuseQuantity": {
+                        "type": "number",
+                        "description": "Cantidad de sobreuso (Paquete)"
+                    },
+                    "unitCost": {
+                        "type": "string",
+                        "description": "Costo unitario",
+                        "example": "100.00"
+                    },
+                    "costPerUse": {
+                        "type": "string",
+                        "description": "Costo por uso",
+                        "example": "25.00"
+                    }
+                },
+                "required": [
+                    "buroId",
+                    "modality",
+                    "unitCost",
+                    "costPerUse"
+                ]
+            },
+            "CompanyNotificationDto": {
+                "type": "object",
+                "properties": {
+                    "notificationId": {
+                        "type": "number",
+                        "description": "ID de la notificación (Email, SMS, WhatsApp)",
+                        "example": 1
+                    },
+                    "modality": {
+                        "type": "string",
+                        "enum": [
+                            "A demanda",
+                            "Paquete",
+                            "Ilimitado"
+                        ]
+                    },
+                    "includedQuantity": {
+                        "type": "number",
+                        "description": "Cantidad incluida (Paquete)"
+                    },
+                    "overuseQuantity": {
+                        "type": "number",
+                        "description": "Cantidad de sobreuso (Paquete)"
+                    },
+                    "unitCost": {
+                        "type": "string",
+                        "description": "Costo unitario",
+                        "example": "100.00"
+                    },
+                    "costPerUse": {
+                        "type": "string",
+                        "description": "Costo por uso",
+                        "example": "25.00"
+                    }
+                },
+                "required": [
+                    "notificationId",
+                    "modality",
+                    "unitCost",
+                    "costPerUse"
+                ]
+            },
+            "CompanyStorageDto": {
+                "type": "object",
+                "properties": {
+                    "modality": {
+                        "type": "string",
+                        "enum": [
+                            "A demanda",
+                            "Paquete",
+                            "Ilimitado"
+                        ]
+                    },
+                    "includedQuantity": {
+                        "type": "number",
+                        "description": "Cantidad incluida (si aplica)"
+                    },
+                    "overuseQuantity": {
+                        "type": "number",
+                        "description": "Cantidad de sobreuso (si aplica)"
+                    },
+                    "unitCost": {
+                        "type": "string",
+                        "description": "Costo unitario (decimal con 2 decimales)",
+                        "example": "100.00"
+                    },
+                    "costPerUse": {
+                        "type": "string",
+                        "description": "Costo por uso (decimal con 2 decimales)",
+                        "example": "25.00"
+                    }
+                },
+                "required": [
+                    "modality",
+                    "unitCost",
+                    "costPerUse"
+                ]
+            },
+            "CompanyResourceDto": {
+                "type": "object",
+                "properties": {
+                    "consults": {
+                        "description": "Configuración de consultas",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/CompanyConsultDto"
+                            }
+                        ]
+                    },
+                    "connections": {
+                        "description": "Conexiones (büros) configuradas",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CompanyDefaultBuroDto"
+                        }
+                    },
+                    "notifications": {
+                        "description": "Notificaciones configuradas",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CompanyNotificationDto"
+                        }
+                    },
+                    "storage": {
+                        "description": "Configuracion de almacenamiento",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/CompanyStorageDto"
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "consults",
+                    "connections",
+                    "notifications",
+                    "storage"
+                ]
+            },
+            "CompanySubscriptionDto": {
+                "type": "object",
+                "properties": {
+                    "cutoffDate": {
+                        "type": "number",
+                        "description": "Día de corte del mes para la facturación (1–28).",
+                        "example": 15
+                    },
+                    "paymentMethod": {
+                        "type": "string",
+                        "enum": [
+                            "Tarjeta Credito/Debito",
+                            "Transferencia"
+                        ],
+                        "description": "Medio de pago. Seleccionar Tarjeta Credito/Debito o Transferencia."
+                    },
+                    "clientType": {
+                        "type": "string",
+                        "enum": [
+                            "Natural",
+                            "Juridica"
+                        ],
+                        "description": "Tipo de cliente. Seleccionar (Persona natural o Persona jurídica)."
+                    },
+                    "razonSocial": {
+                        "type": "string",
+                        "description": "Razón social / nombre completo (obligatorio)"
+                    },
+                    "comercialName": {
+                        "type": "string",
+                        "description": "Nombre comercial (opcional). Si es diferente a la razón social."
+                    },
+                    "nitDpi": {
+                        "type": "string",
+                        "description": "NIT/DPI (obligatorio)"
+                    },
+                    "economicActivity": {
+                        "type": "number",
+                        "description": "Actividad económica (ID) - obligatorio"
+                    },
+                    "taxRegime": {
+                        "type": "number",
+                        "description": "Régimen tributario (ID) - obligatorio"
+                    },
+                    "currencyId": {
+                        "type": "number",
+                        "description": "Moneda (ID) - obligatorio"
+                    },
+                    "cityId": {
+                        "type": "number",
+                        "description": "Ciudad (ID) - obligatorio"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Correo electrónico (obligatorio)"
+                    },
+                    "address": {
+                        "type": "string",
+                        "description": "Dirección (obligatorio)"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "description": "Teléfono (validaciones globales PRECREDIT)"
+                    },
+                    "contactFullName": {
+                        "type": "string",
+                        "description": "Persona de contacto - nombre completo (obligatorio)"
+                    },
+                    "contactRole": {
+                        "type": "string",
+                        "description": "Persona de contacto - cargo - opcional"
+                    },
+                    "contactEmail": {
+                        "type": "string",
+                        "description": "Persona de contacto - email (obligatorio)"
+                    },
+                    "contactClientCode": {
+                        "type": "string",
+                        "description": "Código interno cliente (autogenerado). Se genera automáticamente."
+                    },
+                    "phoneCountryCode": {
+                        "type": "string",
+                        "description": "Código de país para teléfono (ej: +502)",
+                        "example": "+502"
+                    }
+                },
+                "required": [
+                    "cutoffDate",
+                    "paymentMethod",
+                    "clientType",
+                    "razonSocial",
+                    "nitDpi",
+                    "economicActivity",
+                    "taxRegime",
+                    "currencyId",
+                    "cityId",
+                    "email",
+                    "address",
+                    "phone",
+                    "contactFullName",
+                    "contactEmail",
+                    "contactClientCode",
+                    "phoneCountryCode"
+                ]
+            },
+            "DeactivateCompanyDto": {
+                "type": "object",
+                "properties": {
+                    "reason": {
+                        "type": "string",
+                        "description": "Razón de desactivación de la compañía",
+                        "example": "Incumplimiento de términos de servicio",
+                        "minLength": 3
+                    }
+                },
+                "required": [
+                    "reason"
+                ]
+            },
+            "PaymentSuccessDto": {
+                "type": "object",
+                "properties": {
+                    "paymentId": {
+                        "type": "string",
+                        "description": "ID del pago realizado",
+                        "example": "pay_123456"
+                    },
+                    "cardToken": {
+                        "type": "string",
+                        "description": "Token de la tarjeta agregada",
+                        "example": "tok_123456"
+                    },
+                    "last4": {
+                        "type": "string",
+                        "description": "Últimos 4 dígitos de la tarjeta",
+                        "example": "4242"
+                    },
+                    "brand": {
+                        "type": "string",
+                        "description": "Marca de la tarjeta (Visa, Mastercard, etc.)",
+                        "example": "Visa"
+                    },
+                    "cardAdded": {
+                        "type": "boolean",
+                        "description": "Indica si la tarjeta fue agregada exitosamente",
+                        "example": true
+                    }
+                },
+                "required": [
+                    "paymentId",
+                    "cardAdded"
+                ]
+            },
+            "ModuleLimitDto": {
+                "type": "object",
+                "properties": {
+                    "moduleId": {
+                        "type": "number",
+                        "description": "ID del módulo"
+                    },
+                    "moduleName": {
+                        "type": "string",
+                        "description": "Nombre del módulo"
+                    },
+                    "moduleDescription": {
+                        "type": "string",
+                        "description": "Descripción del módulo"
+                    },
+                    "isUnlimited": {
+                        "type": "boolean",
+                        "description": "Indica si el módulo tiene límite ilimitado"
+                    },
+                    "count": {
+                        "type": "number",
+                        "description": "Cantidad permitida (si no es ilimitado)"
+                    },
+                    "types": {
+                        "type": "array",
+                        "description": "Tipos de módulo configurados",
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "P_OneToOne",
+                                "P_Masive",
+                                "L_precredit",
+                                "L_personalize",
+                                "C_precredit",
+                                "C_personalize"
+                            ]
+                        }
+                    }
+                },
+                "required": [
+                    "moduleId",
+                    "moduleName",
+                    "isUnlimited"
+                ]
+            },
+            "CompanyModulesLimitsResponseDto": {
+                "type": "object",
+                "properties": {
+                    "companyId": {
+                        "type": "number",
+                        "description": "ID de la compañía"
+                    },
+                    "companyName": {
+                        "type": "string",
+                        "description": "Nombre de la compañía"
+                    },
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Estado de activación de la compañía"
+                    },
+                    "modules": {
+                        "description": "Lista de módulos disponibles con sus límites",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ModuleLimitDto"
+                        }
+                    },
+                    "planName": {
+                        "type": "string",
+                        "description": "Nombre del plan asociado"
+                    }
+                },
+                "required": [
+                    "companyId",
+                    "companyName",
+                    "isActive",
+                    "modules"
+                ]
             },
             "TeamResponseDto": {
                 "type": "object",
@@ -5602,6 +9290,14 @@
                 ]
             },
             "CountryResponseDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "Department": {
+                "type": "object",
+                "properties": {}
+            },
+            "City": {
                 "type": "object",
                 "properties": {}
             },
@@ -5989,17 +9685,105 @@
                     "updatedAt"
                 ]
             },
-            "PlanChangeDto": {
+            "PlanWithFeaturesDto": {
                 "type": "object",
                 "properties": {
-                    "planId": {
+                    "id": {
                         "type": "number",
-                        "description": "ID del nuevo plan",
-                        "example": 2
+                        "description": "ID del plan"
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Código del plan",
+                        "example": "ex-light"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "Título del plan",
+                        "example": "Ex-Light"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Descripción del plan"
+                    },
+                    "evaluation_type": {
+                        "type": "string",
+                        "description": "Tipo de evaluación",
+                        "example": "Uno a uno"
+                    },
+                    "price": {
+                        "type": "number",
+                        "description": "Precio mensual"
+                    },
+                    "annual_price": {
+                        "type": "object",
+                        "description": "Precio anual",
+                        "nullable": true
+                    },
+                    "popular": {
+                        "type": "boolean",
+                        "description": "Es popular"
+                    },
+                    "features": {
+                        "description": "Características del plan",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PlanFeatureDto"
+                        }
                     }
                 },
                 "required": [
-                    "planId"
+                    "id",
+                    "code",
+                    "title",
+                    "description",
+                    "evaluation_type",
+                    "price",
+                    "annual_price",
+                    "popular",
+                    "features"
+                ]
+            },
+            "PlansWithFeaturesOverviewDto": {
+                "type": "object",
+                "properties": {
+                    "billingMode": {
+                        "type": "string",
+                        "description": "Modo de facturación",
+                        "enum": [
+                            "monthly",
+                            "annual"
+                        ]
+                    },
+                    "annualDiscountPercent": {
+                        "type": "number",
+                        "description": "Porcentaje de descuento anual"
+                    },
+                    "plans": {
+                        "description": "Lista de planes con características",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PlanWithFeaturesDto"
+                        }
+                    },
+                    "activePlanCode": {
+                        "type": "object",
+                        "description": "Código del plan activo del usuario",
+                        "nullable": true
+                    },
+                    "comparisonMatrix": {
+                        "description": "Matriz de comparación de características",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "required": [
+                    "billingMode",
+                    "annualDiscountPercent",
+                    "plans",
+                    "comparisonMatrix"
                 ]
             },
             "InvoiceListDto": {
@@ -6114,6 +9898,14 @@
                         }
                     }
                 }
+            },
+            "CheckBlocksResponseDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "ManualUnblockDto": {
+                "type": "object",
+                "properties": {}
             }
         }
     }
