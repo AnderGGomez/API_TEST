@@ -3,8 +3,6 @@ api_test_report.md
 api_test_requests.md
 .vscode/*
 node_modules/
-package-lock.json
-package.json
 TestCase/
 execution_report*
 postman_collection*
