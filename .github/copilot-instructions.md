@@ -3,11 +3,7 @@
 ## Project Context
 This workspace is a specialized BDD (Behavior Driven Development) environment for API testing. It operates in two distinct modes based on the user's intent: **Execution** or **Documentation**.
 
-<<<<<<< HEAD
 - **Source of Truth**: API definitions are located in `resource/precreditCore.json`, `resource/precreditList.json`, `resource/precreditPreFlows.json`, `resource/precreditProduct.json` and `resource/precreditPayment.json`.
-=======
-- **Source of Truth**: API definitions are located in `resource/precreditCore.json`, `resource/precreditList.json`, `resource/precreditPreFlows.json` and `resource/precreditPayment.json`.
->>>>>>> 9bde5c4893bb29777c6711bb1e6e3be48eb1266f
 - **Behavior Definitions**: The agent's behavior is strictly governed by prompts in `.github/prompts/`.
 
 ## Operational Modes

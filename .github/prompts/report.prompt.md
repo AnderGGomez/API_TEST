@@ -1,6 +1,6 @@
 ---
 agent: agent
-model: Claude Opus 4.5 (Preview)
+model: Claude Sonnet 4.5 (copilot)
 tools: ['edit/createFile', 'edit/createDirectory', 'edit/editFiles']
 description: 'Instrucciones para reportar resultados de pruebas y generar colección Postman'
 ---
