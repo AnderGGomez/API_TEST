@@ -1,0 +1,7 @@
+./.venv/
+api_test_report.md
+api_test_requests.md
+node_modules/
+TestCase/
+execution_report*
+postman_collection*

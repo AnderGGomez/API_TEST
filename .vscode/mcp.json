@@ -1,0 +1,46 @@
+{
+	"servers": {
+		"rest-api": {
+			"command": "node",
+			"args": [
+				""
+			],
+			"env": {
+				"REST_BASE_URL": "",
+				"HEADER_Accept": "application/json",			
+			},
+			"type": "stdio"
+		},
+		"postgres": {
+			"command": "postgres-mcp",
+			"args": [
+				"--access-mode=unrestricted"
+			],
+			"env": {
+				"DATABASE_URI": ""
+			}
+		},
+		"mongodb": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				"-y",
+				"mongodb-mcp-server@latest",
+				"--readOnly"
+			],
+			"env": {
+				"MDB_MCP_CONNECTION_STRING": ""
+				
+			}
+		},
+		"atlassian": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"mcp-remote",
+				"https://mcp.atlassian.com/v1/sse"
+			]
+		}
+	},
+	"inputs": []
+}
