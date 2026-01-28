@@ -29,7 +29,6 @@
 			],
 			"env": {
 				"MDB_MCP_CONNECTION_STRING": ""
-				
 			}
 		},
 		"atlassian": {
