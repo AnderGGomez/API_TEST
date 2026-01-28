@@ -3,13 +3,11 @@
 		"rest-api": {
 			"command": "node",
 			"args": [
-				"C:/Users/USUARIO/AppData/Roaming/npm/node_modules/dkmaker-mcp-rest-api/build/index.js"
+				""
 			],
 			"env": {
-				"REST_BASE_URL": "https://qa.back.pre-credit.com",
-				"HEADER_Accept": "application/json",
-				//"AUTH_BEARER": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjdjNzQ5NTFmNjBhMDE0NzE3ZjFlMzA4ZDZiMjgwZjQ4ZjFlODhmZGEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcHJlY3JlZGl0djYtcWEiLCJhdWQiOiJwcmVjcmVkaXR2Ni1xYSIsImF1dGhfdGltZSI6MTc2NDMzODg4OSwidXNlcl9pZCI6Im5zNHd5SkpwSlhWRVhqQTc0MTlLR0lqQlg0ejIiLCJzdWIiOiJuczR3eUpKcEpYVkVYakE3NDE5S0dJakJYNHoyIiwiaWF0IjoxNzY0MzM4ODg5LCJleHAiOjE3NjQzNDI0ODksImVtYWlsIjoiYWRtaW5pc3RyYWRvci5jb21wYW55LnFhQHlvcG1haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImFkbWluaXN0cmFkb3IuY29tcGFueS5xYUB5b3BtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.rtDGmzPuWCJHAQq6FG17MX1fDVhWqq3VOmyLLRw0HsHaH7sNzsS5TF29aT-qT6z9omxPTGVAaAcL_IY4SjH80NJXSj1Cvu8bIe4XXmlnMU3-9OXgadXM-UM-1doVTwnAAy493Vz4edA8kXxQdKSqHhgRBKeBEF0uzrBetXJmo3jOOAxG8Y9Apg34GvWYqkPeczAxdCXp0YjQ6yXyyvBe87x_QfSuukV2So63E7uBUAC4g7Tr0QTBCFEcDf7o87ydsR9EXEzxZK7cqnnxIwIXZMbLlEigWUnqrm7W7EalN035gx6Qb7M9lMjAwvJ947ru32BDZZdyE3O5qKsmrCeAQw"
-			},
+				"REST_BASE_URL": "",
+				"HEADER_Accept": "application/json",			},
 			"type": "stdio"
 		},
 		"postgres": {
@@ -18,7 +16,7 @@
 				"--access-mode=unrestricted"
 			],
 			"env": {
-				"DATABASE_URI": "postgres://admin_dvp:p4r0N90VzizZ@db-precredit-desarrollo.postgres.database.azure.com:5432/precreditdb-qa?sslmode=require"
+				"DATABASE_URI": ""
 			}
 		},
 		"mongodb": {
@@ -30,7 +28,7 @@
 				"--readOnly"
 			],
 			"env": {
-				"MDB_MCP_CONNECTION_STRING": "mongodb://db-logs-precredit-desarollo:mVeHbPkmDuPw20CBzPrwN1g3JdywpHVgzdQbbQfRr8DNwdE4SIratkOSAaIx4J5LKlGoojnFkmyjACDb34s5AQ==@db-logs-precredit-desarollo.mongo.cosmos.azure.com:10255/?ssl=true"
+				"MDB_MCP_CONNECTION_STRING": ""
 				
 			}
 		},
